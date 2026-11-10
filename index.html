@@ -148,8 +148,23 @@ nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(1
 nav .wrap{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
 nav .wrap::-webkit-scrollbar{display:none}
 nav img{width:34px;height:34px;flex:none;margin-right:6px}
+@media (max-width:760px){.nav-logo{display:none}}
 nav a{flex:none;padding:8px 12px;border-radius:999px;font-size:.84rem;font-weight:500;text-decoration:none;color:var(--ivoire-doux)}
 nav a:hover{color:var(--or-clair);background:rgba(233,189,85,.1)}
+.nav-marque,#menu-btn,#menu-pan{display:none}
+@media (max-width:760px){
+  nav .wrap{overflow:visible;justify-content:space-between}
+  nav .wrap>a:not(.nav-marque){display:none}
+  .nav-marque{display:flex;align-items:center;gap:8px;font:700 .86rem var(--titre);letter-spacing:.04em;color:var(--or-clair);text-decoration:none;min-width:0}
+  .nav-marque img{margin-right:0}
+  #menu-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid var(--or);background:var(--or);color:#2a1503;font:700 .86rem var(--texte);cursor:pointer;flex:none}
+  #menu-btn svg{width:18px;height:18px}
+  #menu-btn[aria-expanded="true"]{background:transparent;color:var(--or-clair)}
+  #menu-pan{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:4px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));border-top:1px solid var(--trait)}
+  #menu-pan[hidden]{display:none !important}
+  #menu-pan a{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:12px 14px;border-radius:6px;border:1px solid var(--trait);background:rgba(255,255,255,.05);color:var(--ivoire);font-size:.92rem;font-weight:500}
+  #menu-pan a::after{content:"›";color:var(--or);font-size:1.2rem;line-height:1}
+}
 
 /* ---------- Héros ---------- */
 #braises{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:45}
@@ -252,6 +267,15 @@ figure .e{font-size:.84rem;color:var(--ivoire-doux)}
 .reseaux a:hover{transform:translateY(-4px);filter:brightness(1.12)}
 .reseaux svg{width:40px;height:40px}
 .reseaux small{font-weight:400;font-size:.76rem;opacity:.85}
+.reseaux .va{margin-top:4px;display:inline-flex;align-items:center;gap:4px;background:#fff;color:#1a0a0e;font-size:.76rem;font-weight:700;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.reseaux .va svg{width:13px;height:13px}
+.reseaux a{position:relative}
+.reseaux a::after{content:"";position:absolute;inset:0;border-radius:8px;box-shadow:0 0 0 0 rgba(248,227,161,.65);animation:appel 2.4s ease-out infinite}
+.reseaux a:nth-child(2)::after{animation-delay:.8s}.reseaux a:nth-child(3)::after{animation-delay:1.6s}
+@keyframes appel{0%{box-shadow:0 0 0 0 rgba(248,227,161,.6)}70%,100%{box-shadow:0 0 0 12px rgba(248,227,161,0)}}
+.consigne{text-align:center;margin:-10px 0 0;color:var(--ivoire-doux);font-size:.92rem}
+.consigne b{color:var(--or-clair)}
+@media (max-width:420px){.reseaux{gap:8px}.reseaux a{padding:18px 6px}.reseaux .va{font-size:.7rem;padding:5px 9px}}
 .fb{background:#1877f2}.yt{background:#e3141c}.tt{background:#0b0b0d;border:1px solid #3a3a40}
 
 
@@ -390,7 +414,8 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
 
 <nav aria-label="Rubriques">
   <div class="wrap">
-    <img src="a/logo.png" alt="">
+    <a class="nav-marque" href="#accueil"><img src="a/logo.png" alt="">Adorons Sa Majesté</a>
+    <img class="nav-logo" src="a/logo.png" alt="">
     <a href="#programme">Programme</a>
     <a href="#tabernacle">Le Tabernacle</a>
     <a href="#orateurs">Orateurs</a>
@@ -399,6 +424,21 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     <a href="#presence">Ma présence</a>
     <a href="#carte">Ma carte</a>
     <a href="#contacts">Contacts</a>
+    <button id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-pan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span>Menu</span></button>
+  </div>
+  <div id="menu-pan" hidden>
+    <a href="#mot">Mot du fondateur</a>
+    <a href="#programme">Programme</a>
+    <a href="#tabernacle">Le Tabernacle</a>
+    <a href="#orateurs">Orateurs</a>
+    <a href="#spot">Le spot</a>
+    <a href="#lieu">Localisation</a>
+    <a href="#presence">Ma présence</a>
+    <a href="#carte">Ma carte</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#contacts">Contacts &amp; réseaux</a>
   </div>
 </nav>
 
@@ -648,16 +688,17 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
       <div class="tel"><b>+225 07 08 26 46 71</b><button type="button" data-copie="+2250708264671">Copier</button></div>
     </div>
     <div class="soustitre">Suivez-nous : Église MICASE TV</div>
+    <p class="consigne"><b>Touchez une icône</b> pour ouvrir notre page et vous abonner.</p>
     <div class="reseaux">
       <a class="fb" id="lien-fb" href="https://www.facebook.com/share/1Qa5rUrUbq/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M13.500 22v-8h2.700l.4-3.200h-3.100V8.800c0-.9.300-1.500 1.600-1.500h1.700V4.400C16.500 4.300 15.500 4.200 14.400 4.200c-2.400 0-4 1.500-4 4.100v2.500H7.700V14h2.700v8h3.100z"/></svg>
-        Facebook<small>Église MICASE TV</small></a>
+        Facebook<small>Église MICASE TV</small><span class="va">Ouvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       <a class="yt" id="lien-yt" href="https://youtube.com/@eglisemicasetv7547" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M21.600 7.200a2.500 2.500 0 00-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 002.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 001.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 001.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3-5.200 3z"/></svg>
-        YouTube<small>Église MICASE TV</small></a>
+        YouTube<small>Église MICASE TV</small><span class="va">Ouvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
       <a class="tt" id="lien-tt" href="https://www.tiktok.com/@micasetv" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.500 3c.3 2 1.500 3.500 3.500 3.800v3c-1.300 0-2.500-.4-3.500-1.100v6.000a5.700 5.700 0 11-5.700-5.700c.3 0 .6 0 .9.100v3.100a2.700 2.700 0 101.800 2.500V3h3z"/></svg>
-        TikTok<small>@micasetv</small></a>
+        TikTok<small>@micasetv</small><span class="va">Ouvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -789,6 +830,12 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
       el.addEventListener('pointerleave', function(){ el.style.transform = ''; setTimeout(function(){ el.classList.remove('penche'); }, 200); });
     });
   }
+
+  // ----- Menu téléphone -----
+  var mb = $('menu-btn'), mp = $('menu-pan');
+  function fermerMenu(){ mp.hidden = true; mb.setAttribute('aria-expanded', 'false'); mb.querySelector('span').textContent = 'Menu'; }
+  mb.addEventListener('click', function(){ var o = mp.hidden; mp.hidden = !o; mb.setAttribute('aria-expanded', o ? 'true' : 'false'); mb.querySelector('span').textContent = o ? 'Fermer' : 'Menu'; });
+  mp.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', fermerMenu); });
 
   // ----- Rubriques -----
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
