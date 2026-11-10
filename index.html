@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ADORONS SA MAJESTÉ · 13e édition · MICASE</title>
+<meta name="description" content="Vous êtes invité(e) à ADORONS SA MAJESTÉ, 13e édition. Thème : Le Tabernacle de l'Éternel. Du 20 au 26 décembre 2026 à l'Église MICASE, Yopougon Niangon.">
+<meta property="og:title" content="ADORONS SA MAJESTÉ · 13e édition">
+<meta property="og:description" content="Votre invitation personnelle. Du 20 au 26 décembre 2026 à l'Église MICASE, Yopougon Niangon.">
+<meta property="og:image" content="a/affiche.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#12060a">
+<link rel="icon" href="a/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Poppins:wght@400;500;600;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Mise en page : une invitation qui s'ouvre comme le voile du tabernacle (bleu, pourpre, cramoisi, or),
+   puis une seule colonne centrée, sombre comme la nuit du désert, éclairée à l'or. Look unique assumé. */
+:root{
+  color-scheme:dark;
+  --nuit:#12060a; --nuit2:#1d0a10; --braise:#2a0d14;
+  --cramoisi:#b3121d; --cramoisi-vif:#d81f2c;
+  --or:#e9bd55; --or-clair:#f8e3a1; --or-sombre:#a87722;
+  --ivoire:#f7eedd; --ivoire-doux:#d9c8ae;
+  --bleu:#22408f; --pourpre:#6a2a8c;
+  --trait:rgba(233,189,85,.28);
+  --titre:"Cinzel","Trajan Pro",Georgia,serif;
+  --script:"Cormorant Garamond",Georgia,serif;
+  --texte:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--nuit);color:var(--ivoire);font-family:var(--texte);font-size:16px;line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--titre);margin:0;text-wrap:balance;line-height:1.1}
+.or{background:linear-gradient(180deg,var(--or-clair) 0%,var(--or) 45%,var(--or-sombre) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sur{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;color:var(--or);font-weight:600}
+:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+
+/* ---------- Voile d'entrée ---------- */
+#porte{position:fixed;inset:0;z-index:50;display:grid;place-items:center;overflow:hidden;perspective:1500px}
+.pan{position:absolute;top:0;bottom:0;width:50.5%;transition:transform 2s cubic-bezier(.7,0,.2,1),filter 2s;
+  background:
+   repeating-linear-gradient(90deg,rgba(0,0,0,.34) 0 2px,transparent 2px 46px,rgba(255,255,255,.07) 46px 48px,transparent 48px 92px),
+   repeating-linear-gradient(90deg,var(--bleu) 0 92px,var(--or-sombre) 92px 98px,var(--pourpre) 98px 190px,var(--or-sombre) 190px 196px,var(--cramoisi) 196px 288px,var(--or-sombre) 288px 294px);
+  box-shadow:inset 0 -140px 120px rgba(0,0,0,.55),inset 0 90px 90px rgba(0,0,0,.4)}
+.pan.g{left:0;border-right:5px solid var(--or);transform-origin:left center}
+.pan.d{right:0;border-left:5px solid var(--or);transform-origin:right center}
+#porte.ouvre .pan.g{transform:rotateY(104deg);filter:brightness(.35)}
+#porte.ouvre .pan.d{transform:rotateY(-104deg);filter:brightness(.35)}
+#porte.ouvre .carton{opacity:0;transform:scale(.94);pointer-events:none}
+.carton{position:relative;z-index:2;width:min(92vw,470px);max-height:94%;overflow:auto;background:linear-gradient(180deg,#210a11,#140609);
+  border:1px solid var(--or);outline:1px solid var(--trait);outline-offset:6px;border-radius:4px;padding:26px 22px 24px;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);transition:opacity .6s,transform .6s;display:flex;flex-direction:column;gap:14px;align-items:center}
+.carton img{width:74px;height:74px}
+.carton h1{font-size:clamp(1.5rem,6.4vw,2rem);font-weight:900;letter-spacing:.03em}
+.carton .inv{font-family:var(--script);font-style:italic;font-size:1.5rem;color:var(--ivoire);line-height:1.2}
+.carton p{margin:0;color:var(--ivoire-doux);font-size:.92rem}
+.civ{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;border:0;padding:0;margin:0}
+.civ label{cursor:pointer}
+.civ input{position:absolute;opacity:0}
+.civ span{display:block;padding:8px 14px;border:1px solid var(--trait);border-radius:999px;font-size:.88rem;color:var(--ivoire-doux);transition:.2s}
+.civ input:checked+span{background:var(--or);border-color:var(--or);color:#2a1503;font-weight:600}
+.civ input:focus-visible+span{outline:2px solid var(--or-clair);outline-offset:3px}
+#nom{width:100%;padding:13px 16px;border-radius:4px;border:1px solid var(--trait);background:rgba(255,255,255,.06);color:var(--ivoire);
+  font:500 1rem var(--texte);text-align:center}
+#nom::placeholder{color:rgba(247,238,221,.45)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:4px;border:1px solid transparent;
+  font:600 .98rem var(--texte);text-decoration:none;cursor:pointer;transition:transform .15s,filter .2s;min-width:0}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn.dore{background:linear-gradient(180deg,var(--or-clair),var(--or) 55%,var(--or-sombre));color:#2a1503}
+.btn.rouge{background:linear-gradient(180deg,var(--cramoisi-vif),var(--cramoisi));color:#fff}
+.btn.ligne{border-color:var(--or);color:var(--or-clair);background:rgba(233,189,85,.07)}
+.btn.vert{background:#1fa855;color:#fff}
+.btn svg{width:20px;height:20px;flex:none}
+#ouvrir{width:100%;font-size:1.05rem;padding:16px}
+.note{font-size:.76rem !important;opacity:.8}
+
+
+/* ---------- Scène 3D : le carton d'invitation ---------- */
+#scene{position:fixed;inset:0;z-index:40;display:grid;place-items:center;perspective:1300px;overflow:hidden;transition:opacity .9s;
+  background:radial-gradient(ellipse at 50% 42%,#5a121c 0%,#22090f 52%,#0a0305 100%)}
+#scene::before{content:"";position:absolute;left:50%;top:44%;width:200vmax;height:200vmax;margin:-100vmax 0 0 -100vmax;
+  background:repeating-conic-gradient(from 0deg,rgba(248,214,130,.11) 0 5deg,transparent 5deg 15deg);animation:rayons 60s linear infinite;
+  -webkit-mask:radial-gradient(circle,#000 0,transparent 46%);mask:radial-gradient(circle,#000 0,transparent 46%)}
+@keyframes rayons{to{transform:rotate(360deg)}}
+.c3{position:relative;width:min(88vw,400px);height:min(86%,610px);transform-style:preserve-3d;visibility:hidden}
+.c3.vol{visibility:visible;animation:arrive 3.6s cubic-bezier(.22,.7,.2,1) both}
+@keyframes arrive{
+  0%{transform:translateZ(-2600px) rotateY(-560deg) rotateX(34deg) scale(.15)}
+  58%{transform:translateZ(80px) rotateY(-180deg) rotateX(0)}
+  72%{transform:translateZ(80px) rotateY(-180deg) rotateX(0)}
+  100%{transform:translateZ(0) rotateY(0) rotateX(0)}}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:10px;overflow:hidden;
+  box-shadow:0 40px 90px rgba(0,0,0,.75),0 0 60px rgba(233,189,85,.22)}
+.recto{background:linear-gradient(170deg,#fbf3e2 0%,#f1e2c4 100%);color:#2a0d10;border:1px solid var(--or-sombre);
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:6px;padding:20px 18px 18px;text-align:center;overflow-y:auto}
+.recto::before{content:"";position:absolute;inset:8px;border:2px solid var(--or-sombre);border-radius:6px;pointer-events:none;outline:1px solid rgba(168,119,34,.5);outline-offset:-6px}
+.recto::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:45%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg);animation:eclat 4.5s 3.8s ease-in-out infinite}
+@keyframes eclat{0%{left:-60%}35%,100%{left:130%}}
+.recto>*{position:relative;z-index:1}
+.recto img{width:58px;height:58px}
+.c-bon{font-family:var(--script);font-style:italic;font-weight:600;font-size:clamp(2rem,9vw,2.6rem);line-height:1;color:var(--cramoisi)}
+.c-nom{font:700 clamp(1.15rem,5.4vw,1.5rem)/1.15 var(--titre);color:#2a0d10;overflow-wrap:anywhere}
+.c-acc{font-family:var(--script);font-style:italic;font-size:1.25rem;line-height:1.15;color:#5b3a2c}
+.c-titre{font:900 clamp(1.7rem,8.6vw,2.4rem)/1 var(--titre);color:var(--cramoisi);letter-spacing:.01em}
+.c-titre small{display:block;font-size:.36em;letter-spacing:.5em;color:var(--or-sombre);margin:.2em 0 .2em .5em}
+.c-ed{background:var(--bleu);color:#fff;font:700 .68rem var(--texte);letter-spacing:.22em;padding:4px 10px;border-radius:3px;text-transform:uppercase}
+.c-th{font:700 .86rem var(--titre);letter-spacing:.05em;color:#2a0d10;border-block:1px solid var(--or-sombre);padding:6px 4px}
+.c-inf{font-size:.8rem;line-height:1.45;color:#3d2018;font-weight:500}
+.c-inf b{color:var(--cramoisi)}
+#entrer{width:100%;padding:13px}
+.verso{transform:rotateY(180deg);display:grid;place-items:center;text-align:center;border:1px solid var(--or);
+  background:radial-gradient(circle at 50% 38%,#d81f2c 0%,#8e0d17 55%,#4f070d 100%)}
+.verso::before{content:"";position:absolute;inset:10px;border:2px solid var(--or);border-radius:6px;outline:1px solid var(--trait);outline-offset:-7px}
+.verso div{display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px}
+.verso img{width:110px;height:110px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.5))}
+.verso b{font:900 2rem/1.1 var(--titre)}
+.verso span{font-size:.74rem;letter-spacing:.4em;text-transform:uppercase;color:var(--or-clair)}
+#scene.sort{opacity:0;pointer-events:none}
+
+/* ---------- Relief et profondeur ---------- */
+.heros h1{transform-style:preserve-3d}
+.heros h1.vie{animation:surgit 1.7s cubic-bezier(.2,.7,.2,1) both,balance 8s 1.7s ease-in-out infinite}
+@keyframes surgit{from{opacity:0;transform:perspective(900px) translateZ(-700px) rotateX(55deg)}to{opacity:1;transform:perspective(900px) rotateY(-8deg) rotateX(4deg)}}
+@keyframes balance{0%,100%{transform:perspective(900px) rotateY(-8deg) rotateX(4deg)}50%{transform:perspective(900px) rotateY(8deg) rotateX(-3deg)}}
+.heros h1 .blanc{text-shadow:0 1px 0 #d8cfc0,0 2px 0 #c0b5a3,0 3px 0 #a79b88,0 4px 0 #8d816f,0 5px 0 #73685a,0 16px 24px rgba(0,0,0,.85)}
+.heros h1 .or{display:inline-block;filter:drop-shadow(0 1px 0 #8a5f17) drop-shadow(0 2px 0 #7a5312) drop-shadow(0 3px 0 #63420d) drop-shadow(0 4px 0 #4d3309) drop-shadow(0 14px 18px rgba(0,0,0,.8))}
+body.anime .r3{opacity:0;transform:perspective(1000px) rotateX(26deg) translateY(60px) scale(.94);transform-origin:50% 100%;
+  transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+body.anime .r3.vu{opacity:1;transform:none}
+.penche{transition:transform .18s ease-out !important;will-change:transform}
+.temps article{box-shadow:0 10px 0 -4px rgba(0,0,0,.35),0 22px 40px rgba(0,0,0,.5)}
+.jours li{box-shadow:0 6px 0 -2px rgba(0,0,0,.5)}
+.jours li.fort{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 26px rgba(233,189,85,.55)}}
+.rebours div{box-shadow:inset 0 -18px 18px rgba(0,0,0,.5),0 8px 0 -3px rgba(0,0,0,.5);transform:perspective(500px) rotateX(8deg)}
+.oints img{animation:flotte 5s ease-in-out infinite}
+.oints figure:nth-child(2) img{animation-delay:-1.2s}.oints figure:nth-child(3) img{animation-delay:-2.4s}.oints figure:nth-child(4) img{animation-delay:-3.6s}
+@keyframes flotte{50%{transform:translateY(-8px) rotateY(14deg)}}
+.oints figure{perspective:500px}
+
+/* ---------- Barre ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nuit)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(18,6,10,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+nav .wrap{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:8px}
+nav .wrap::-webkit-scrollbar{display:none}
+nav img{width:34px;height:34px;flex:none;margin-right:6px}
+nav a{flex:none;padding:8px 12px;border-radius:999px;font-size:.84rem;font-weight:500;text-decoration:none;color:var(--ivoire-doux)}
+nav a:hover{color:var(--or-clair);background:rgba(233,189,85,.1)}
+
+/* ---------- Héros ---------- */
+#braises{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:45}
+header.heros{position:relative;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,rgba(18,6,10,.72) 0%,rgba(18,6,10,.35) 38%,rgba(18,6,10,.6) 72%,var(--nuit) 100%),url(a/tab.jpg) 38% 70%/cover no-repeat}
+@media (min-width:761px){header.heros{background-image:linear-gradient(180deg,rgba(18,6,10,.72) 0%,rgba(18,6,10,.35) 38%,rgba(18,6,10,.6) 72%,var(--nuit) 100%),url(a/tabw.jpg);background-position:center 55%}}
+.heros .wrap{position:relative;z-index:2;padding-block:44px 56px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.salut{font-family:var(--script);font-style:italic;font-size:clamp(1.5rem,5.4vw,2.3rem);line-height:1.2;text-shadow:0 2px 14px #000}
+.salut b{font-weight:600;color:var(--or-clair)}
+.orga{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivoire);text-shadow:0 1px 8px #000}
+.heros h1{font-size:clamp(2.5rem,12.5vw,6.6rem);font-weight:900;letter-spacing:.01em;filter:drop-shadow(0 6px 18px rgba(0,0,0,.75))}
+.heros h1 small{display:block;font-size:.34em;font-weight:700;letter-spacing:.5em;color:var(--ivoire);margin:.1em 0 .12em .5em}
+.heros h1 .blanc{color:#fff}
+.edition{display:inline-block;background:var(--bleu);color:#fff;font:700 .8rem var(--texte);letter-spacing:.24em;padding:6px 14px;border-radius:3px;text-transform:uppercase}
+.theme{border-block:1px solid var(--or);padding:12px 6px;max-width:100%}
+.theme span{display:block}
+.theme h2{font-size:clamp(1.15rem,5vw,2rem);font-weight:700;letter-spacing:.06em;color:#fff;margin-top:4px;text-shadow:0 2px 12px #000}
+.dates{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;background:linear-gradient(180deg,var(--cramoisi-vif),var(--cramoisi));
+  padding:12px 22px;border-radius:6px;font-weight:700;letter-spacing:.04em;box-shadow:0 10px 30px rgba(0,0,0,.5);text-transform:uppercase;font-size:clamp(.86rem,3.6vw,1.05rem)}
+.dates b{color:var(--or-clair);font-size:1.5em;font-family:var(--titre)}
+.rebours{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;width:min(100%,470px)}
+.rebours div{background:rgba(18,6,10,.72);border:1px solid var(--trait);border-radius:4px;padding:10px 4px 8px;backdrop-filter:blur(4px)}
+.rebours b{display:block;font:700 clamp(1.6rem,7.5vw,2.5rem)/1 var(--titre);color:var(--or-clair);font-variant-numeric:tabular-nums}
+.rebours span{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivoire-doux)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
+/* ---------- Sections ---------- */
+section{position:relative;z-index:2;padding-block:54px}
+section .wrap{display:flex;flex-direction:column;gap:26px}
+.tete{text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.tete h2{font-size:clamp(1.6rem,6.2vw,2.6rem);font-weight:700}
+.tete p{margin:0;max-width:60ch;color:var(--ivoire-doux)}
+.filet{width:120px;height:9px;background:linear-gradient(90deg,var(--bleu) 0 33%,var(--pourpre) 33% 66%,var(--cramoisi) 66%);border-block:2px solid var(--or)}
+.alt{background:linear-gradient(180deg,var(--nuit2),var(--braise))}
+
+/* Programme */
+.temps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.temps article{background:var(--ivoire);color:#25090d;border-radius:6px;padding:20px 18px;border-top:6px solid var(--cramoisi);display:flex;flex-direction:column;gap:6px}
+.temps .quand{font-weight:700;font-size:1.02rem}
+.temps .heure{font:700 1.55rem/1.1 var(--titre);color:var(--cramoisi)}
+.temps .quoi{font-weight:500;color:#5b3a2c}
+.jours{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.jours li{list-style:none;border:1px solid var(--trait);border-radius:4px;padding:10px 4px;text-align:center;background:rgba(255,255,255,.03)}
+.jours{margin:0;padding:0}
+.jours .j{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+.jours .n{display:block;font:700 1.5rem/1.1 var(--titre);color:#fff}
+.jours .s{font-size:.72rem;color:var(--ivoire-doux);text-transform:uppercase;letter-spacing:.08em}
+.jours li.fort{background:linear-gradient(180deg,rgba(216,31,44,.5),rgba(179,18,29,.28));border-color:var(--or)}
+
+/* Orateurs */
+.grands{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grands figure,.oints figure{margin:0;text-align:center;display:flex;flex-direction:column;gap:4px;align-items:center}
+.grands img{width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:4px;border:2px solid var(--or);box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.role{display:inline-block;margin-top:10px;background:var(--cramoisi);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.2em;padding:4px 10px;border-radius:3px;text-transform:uppercase}
+figure .t{font-size:.84rem;color:var(--or)}
+figure h3{font-size:1.22rem;font-weight:700;color:#fff}
+figure .e{font-size:.84rem;color:var(--ivoire-doux)}
+.oints{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.oints img{width:min(100%,150px);aspect-ratio:1;object-fit:cover;border-radius:50%;border:2px solid var(--or)}
+.oints h3{font-size:.98rem}
+.soustitre{text-align:center;font-family:var(--titre);font-size:1.15rem;letter-spacing:.14em;color:var(--or-clair);text-transform:uppercase}
+
+/* Spot */
+.spot{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;align-items:center}
+.spot video{width:100%;aspect-ratio:9/16;border-radius:8px;border:2px solid var(--or);background:#000;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.spot .dit{display:flex;flex-direction:column;gap:14px}
+.spot blockquote{margin:0;font-family:var(--script);font-style:italic;font-size:clamp(1.4rem,4.6vw,2rem);line-height:1.3;color:var(--ivoire)}
+.spot cite{font-style:normal;font-size:.85rem;color:var(--or);letter-spacing:.1em}
+.spot img{border-radius:6px;border:1px solid var(--trait)}
+
+/* Lieu */
+.lieu{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:stretch}
+.carte{position:relative;min-height:260px;border-radius:8px;border:1px solid var(--or);overflow:hidden;display:grid;place-items:center;text-decoration:none;
+  background:
+   radial-gradient(circle at 50% 46%,rgba(216,31,44,.35),transparent 42%),
+   linear-gradient(115deg,transparent 46%,rgba(233,189,85,.5) 46% 48.5%,transparent 48.5%),
+   linear-gradient(20deg,transparent 58%,rgba(233,189,85,.3) 58% 59.5%,transparent 59.5%),
+   linear-gradient(78deg,transparent 28%,rgba(233,189,85,.22) 28% 29%,transparent 29%),
+   repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 44px),
+   repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 44px),#1a0a12}
+.carte .pin{width:64px;height:64px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.6));animation:saut 2s ease-in-out infinite}
+.carte span{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:var(--or);color:#2a1503;font-weight:700;font-size:.86rem;padding:8px 16px;border-radius:999px;white-space:nowrap}
+@keyframes saut{50%{transform:translateY(-10px)}}
+.adresse{background:rgba(255,255,255,.04);border:1px solid var(--trait);border-radius:8px;padding:24px 22px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.adresse h3{font-size:1.5rem;color:#fff}
+.adresse p{margin:0;color:var(--ivoire-doux)}
+.adresse strong{color:var(--or-clair)}
+
+/* Présence + contacts */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.bloc{border:1px solid var(--trait);border-radius:8px;padding:24px 20px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;background:rgba(255,255,255,.04)}
+.bloc h3{font-size:1.3rem;color:#fff}
+.bloc p{margin:0;color:var(--ivoire-doux);font-size:.95rem}
+.tels{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.tel{display:flex;align-items:center;gap:12px;border:1px solid var(--or);border-radius:6px;padding:10px 12px 10px 18px;background:rgba(233,189,85,.06)}
+.tel b{font:700 clamp(1.15rem,5vw,1.6rem) var(--titre);color:#fff;font-variant-numeric:tabular-nums;user-select:all;white-space:nowrap}
+.tel button{font:600 .8rem var(--texte);background:var(--or);color:#2a1503;border:0;border-radius:4px;padding:8px 12px;cursor:pointer}
+.reseaux{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.reseaux a{display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 10px;border-radius:8px;text-decoration:none;color:#fff;font-weight:600;transition:transform .2s,filter .2s;text-align:center}
+.reseaux a:hover{transform:translateY(-4px);filter:brightness(1.12)}
+.reseaux svg{width:40px;height:40px}
+.reseaux small{font-weight:400;font-size:.76rem;opacity:.85}
+.fb{background:#1877f2}.yt{background:#e3141c}.tt{background:#0b0b0d;border:1px solid #3a3a40}
+
+
+/* ---------- Mot du fondateur ---------- */
+.mot{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:34px;align-items:center}
+.mot img{width:100%;aspect-ratio:8/9;object-fit:cover;object-position:50% 20%;border-radius:8px;border:2px solid var(--or);box-shadow:18px 18px 0 -4px rgba(179,18,29,.55),0 24px 50px rgba(0,0,0,.6)}
+.mot .lettre{display:flex;flex-direction:column;gap:14px}
+.mot .lettre p{margin:0;color:var(--ivoire);max-width:62ch}
+.mot .verset{font-family:var(--script);font-style:italic;font-size:clamp(1.35rem,4.6vw,1.8rem);line-height:1.3;color:var(--or-clair);border-left:3px solid var(--or);padding-left:16px}
+.mot .verset small{display:block;font-family:var(--texte);font-style:normal;font-size:.8rem;letter-spacing:.14em;color:var(--or);margin-top:6px}
+.mot .signe{font-family:var(--script);font-style:italic;font-size:1.9rem;line-height:1.1;color:#fff}
+.mot .signe small{display:block;font-family:var(--texte);font-style:normal;font-size:.82rem;color:var(--ivoire-doux);margin-top:4px}
+@media (max-width:760px){.mot{grid-template-columns:minmax(0,1fr)}.mot img{max-width:300px;justify-self:center}}
+
+/* ---------- Plan du tabernacle ---------- */
+.plan{background:linear-gradient(180deg,#fbf3e2,#efdfbf);border-radius:8px;border:2px solid var(--or);padding:10px;box-shadow:0 20px 50px rgba(0,0,0,.55)}
+.plan svg{display:block;width:100%;height:auto}
+.plan .pt{cursor:pointer;outline:none}
+.plan .pt .halo{fill:transparent;stroke:transparent;stroke-width:3;transition:.25s}
+.plan .pt:hover .halo,.plan .pt:focus-visible .halo{stroke:#d81f2c;fill:rgba(216,31,44,.1)}
+.plan .pt.actif .halo{stroke:#b3121d;fill:rgba(216,31,44,.16);animation:batt 1.6s ease-in-out infinite}
+@keyframes batt{50%{stroke-width:6}}
+.plan text{font-family:var(--texte);fill:#3d2018}
+.puces{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.puces button{font:500 .84rem var(--texte);color:var(--ivoire-doux);background:rgba(255,255,255,.04);border:1px solid var(--trait);border-radius:999px;padding:8px 14px;cursor:pointer}
+.puces button.actif{background:var(--or);border-color:var(--or);color:#2a1503;font-weight:600}
+.sens{border-left:4px solid var(--or);background:rgba(255,255,255,.05);border-radius:0 8px 8px 0;padding:18px 20px;display:flex;flex-direction:column;gap:6px;max-width:760px;margin:0 auto;width:100%}
+.sens .z{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--or)}
+.sens h3{font-size:1.35rem;color:#fff}
+.sens p{margin:0;color:var(--ivoire-doux)}
+.sens .ref{font-family:var(--script);font-style:italic;font-size:1.15rem;color:var(--or-clair)}
+
+/* ---------- Direct, compteur, carte, galerie ---------- */
+.direct{display:flex;flex-direction:column;align-items:center;gap:12px;background:rgba(18,6,10,.8);border:1px solid var(--or);border-radius:8px;padding:16px 20px;width:min(100%,470px);backdrop-filter:blur(4px)}
+.direct .etat{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--titre);color:#fff;text-align:center}
+.direct .pastille{width:12px;height:12px;border-radius:50%;background:var(--cramoisi-vif);flex:none}
+.direct.live .pastille{animation:clign 1s infinite}
+@keyframes clign{50%{opacity:.25}}
+.direct .quand2{color:var(--ivoire-doux);font-size:.92rem;text-align:center}
+.compte{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.compte b{font:900 clamp(3rem,14vw,5rem)/1 var(--titre);font-variant-numeric:tabular-nums}
+.compte span{color:var(--ivoire-doux);font-size:.98rem}
+.mini-compte{font-size:.9rem;color:var(--or-clair);background:rgba(18,6,10,.7);border:1px solid var(--trait);border-radius:999px;padding:6px 16px}
+.macarte{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:26px;align-items:center;border:1px solid var(--or);border-radius:8px;padding:22px;background:rgba(255,255,255,.04)}
+.macarte img{width:100%;border-radius:6px;border:1px solid var(--trait);box-shadow:0 18px 44px rgba(0,0,0,.6);-webkit-touch-callout:default;user-select:auto}
+.macarte .txt{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.macarte h3{font-size:1.4rem;color:#fff}
+.macarte p{margin:0;color:var(--ivoire-doux);font-size:.95rem}
+.macarte .btns{display:flex;flex-wrap:wrap;gap:10px}
+#carte-msg{font-size:.86rem;color:var(--or-clair);min-height:1.2em}
+.galerie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.galerie img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid var(--trait);display:block}
+@media (max-width:760px){.macarte{grid-template-columns:minmax(0,1fr)}.macarte img{max-width:300px;justify-self:center}.macarte .txt{align-items:stretch;text-align:center}.macarte .btns{justify-content:center}.galerie{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+footer{position:relative;z-index:2;text-align:center;padding-block:40px 110px;border-top:1px solid var(--trait);background:var(--nuit)}
+footer .wrap{display:flex;flex-direction:column;gap:10px;align-items:center}
+footer img{width:70px}
+footer .b{font-family:var(--script);font-style:italic;font-size:1.6rem;color:var(--or-clair)}
+footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
+
+/* Bouton musique */
+#son{position:fixed;z-index:20;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border-radius:999px;border:1px solid var(--or);background:rgba(18,6,10,.92);color:var(--or-clair);
+  font:600 .82rem var(--texte);cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.barres{display:flex;align-items:flex-end;gap:3px;height:18px}
+.barres i{width:3px;background:var(--or);border-radius:2px;height:5px}
+#son.joue .barres i{animation:eq 1s ease-in-out infinite}
+#son.joue .barres i:nth-child(2){animation-delay:-.3s}
+#son.joue .barres i:nth-child(3){animation-delay:-.6s}
+#son.joue .barres i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{height:4px}50%{height:18px}}
+
+.entre{animation:monte 1s both}
+.entre.d2{animation-delay:.25s}.entre.d3{animation-delay:.5s}.entre.d4{animation-delay:.75s}
+@keyframes monte{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+@media (max-width:760px){
+  .temps,.spot,.lieu,.duo{grid-template-columns:minmax(0,1fr)}
+  .grands{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grands figure:first-child{grid-column:1/-1;justify-self:center;width:62%}
+  .oints{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jours{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .spot video{max-width:300px;justify-self:center}
+  .spot .dit{text-align:center;align-items:center}
+  .bloc{align-items:stretch;text-align:center}
+  section{padding-block:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+
+<!-- ============ Voile d'entrée ============ -->
+<div id="porte">
+  <div class="pan g"></div><div class="pan d"></div>
+  <form class="carton" id="formulaire" autocomplete="off">
+    <img src="a/logo.png" alt="Logo MICASE">
+    <span class="sur">Invitation officielle</span>
+    <h1 class="or">Adorons Sa Majesté</h1>
+    <div class="inv">Une invitation vous attend</div>
+    <p>Indiquez votre nom pour recevoir votre invitation personnelle.</p>
+    <fieldset class="civ" aria-label="Civilité">
+      <label><input type="radio" name="civ" id="civ-m" value="Monsieur" checked><span>Monsieur</span></label>
+      <label><input type="radio" name="civ" id="civ-f" value="Madame"><span>Madame</span></label>
+      <label><input type="radio" name="civ" id="civ-d" value="Mademoiselle"><span>Mademoiselle</span></label>
+    </fieldset>
+    <input id="nom" type="text" maxlength="40" placeholder="Votre nom et prénom" aria-label="Votre nom et prénom">
+    <button class="btn dore" id="ouvrir" type="submit">Ouvrir mon invitation</button>
+    <p class="note">♪ La musique du programme démarre à l'ouverture</p>
+  </form>
+</div>
+
+<!-- ============ Scène 3D ============ -->
+<div id="scene">
+  <div class="c3" id="c3">
+    <div class="face verso"><div><img src="a/logo.png" alt=""><span>Invitation</span><b class="or">Adorons<br>Sa Majesté</b><span>13<sup>e</sup> édition</span></div></div>
+    <div class="face recto">
+      <img src="a/logo.png" alt="Logo MICASE">
+      <div class="c-bon" id="c-bon">Bonjour</div>
+      <div class="c-nom" id="c-nom">Monsieur</div>
+      <div class="c-acc" id="c-acc">vous êtes cordialement invité à</div>
+      <div class="c-titre">Adorons<small>SA</small>Majesté</div>
+      <span class="c-ed">13<sup>e</sup> édition</span>
+      <div class="c-th">« Le Tabernacle de l'Éternel »</div>
+      <div class="c-inf"><b>Du dimanche 20 au samedi 26 décembre 2026</b><br>Église MICASE · Yopougon Niangon</div>
+      <button class="btn rouge" id="entrer" type="button">Découvrir le programme</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="braises" aria-hidden="true"></canvas>
+
+<nav aria-label="Rubriques">
+  <div class="wrap">
+    <img src="a/logo.png" alt="">
+    <a href="#programme">Programme</a>
+    <a href="#tabernacle">Le Tabernacle</a>
+    <a href="#orateurs">Orateurs</a>
+    <a href="#spot">Le spot</a>
+    <a href="#lieu">Localisation</a>
+    <a href="#presence">Ma présence</a>
+    <a href="#carte">Ma carte</a>
+    <a href="#contacts">Contacts</a>
+  </div>
+</nav>
+
+<!-- ============ Héros ============ -->
+<header class="heros" id="accueil">
+  <div class="wrap">
+    <div class="orga">La Mission Chrétienne les Actes du Saint-Esprit</div>
+    <div class="salut" id="salut"><b>Monsieur, Madame, Mademoiselle,</b><br>vous êtes cordialement invité(e) à</div>
+    <h1><span class="blanc">Adorons</span><small>SA</small><span class="or">Majesté</span></h1>
+    <span class="edition">13<sup>e</sup> édition</span>
+    <div class="theme"><span class="sur">Thème</span><h2>« Le Tabernacle de l'Éternel »</h2></div>
+    <div class="dates"><span>Dimanche <b>20</b></span><span>au</span><span>Samedi <b>26</b></span><span>Décembre 2026</span></div>
+    <div class="rebours" id="rebours" aria-label="Temps restant avant l'ouverture">
+      <div><b id="cj">--</b><span>Jours</span></div><div><b id="ch">--</b><span>Heures</span></div>
+      <div><b id="cm">--</b><span>Minutes</span></div><div><b id="cs">--</b><span>Secondes</span></div>
+    </div>
+    <div class="direct" id="direct" hidden>
+      <div class="etat"><span class="pastille"></span><span id="direct-etat">En direct</span></div>
+      <div class="quand2" id="direct-quand"></div>
+      <div class="actions">
+        <a class="btn rouge" href="https://youtube.com/@eglisemicasetv7547/live" target="_blank" rel="noopener">Suivre sur YouTube</a>
+        <a class="btn ligne" href="https://www.facebook.com/share/1Qa5rUrUbq/" target="_blank" rel="noopener">Suivre sur Facebook</a>
+      </div>
+    </div>
+    <div class="mini-compte" id="mini-compte" hidden></div>
+    <div class="actions">
+      <a class="btn rouge" href="#presence">Je confirme ma présence</a>
+      <a class="btn ligne" href="#lieu">Voir la localisation</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ Mot du fondateur ============ -->
+<section id="mot" class="alt">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Bienvenue</span><h2 class="or">Le mot du fondateur</h2><div class="filet"></div></div>
+    <div class="mot">
+      <img src="a/fondateur.jpg" alt="Rév. Apôtre BROU François, président fondateur des Églises MICASE">
+      <div class="lettre">
+        <div class="verset">« Ils me feront un sanctuaire, et j'habiterai au milieu d'eux. »<small>EXODE 25.8</small></div>
+        <p>Bien-aimé(e) dans le Seigneur,</p>
+        <p>C'est avec une grande joie que je vous invite à la 13<sup>e</sup> édition d'ADORONS SA MAJESTÉ. Depuis treize ans, notre Dieu nous donne rendez-vous chaque fin d'année pour Lui rendre la gloire qui Lui revient. Il a toujours été fidèle à ce rendez-vous.</p>
+        <p>Cette année, nous entrons dans le Tabernacle de l'Éternel. Pendant sept jours, nous allons franchir la porte, nous approcher de l'autel et avancer jusque dans Sa présence. Notre Dieu ne veut pas rester loin de Son peuple : Il veut habiter au milieu de nous.</p>
+        <p>Venez avec votre famille, vos amis et vos voisins. Venez avec votre soif, vos fardeaux et votre reconnaissance. Celui qui s'approche de Dieu ne repart jamais comme il est venu.</p>
+        <p>Je vous attends du 20 au 26 décembre. Que Dieu vous bénisse !</p>
+        <div class="signe">Rév. Apôtre BROU François<small>Président fondateur des Églises MICASE</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Programme ============ -->
+<section id="programme">
+  <div class="wrap">
+    <div class="tete"><span class="sur">7 jours dans Sa présence</span><h2 class="or">Le déroulé du programme</h2><div class="filet"></div>
+      <p>Sept jours d'adoration, de louange et de Parole, du dimanche 20 au samedi 26 décembre 2026.</p></div>
+    <div class="temps">
+      <article><span class="quand">Dimanche 20 décembre</span><span class="heure">14h00 – 18h00</span><span class="quoi">Cérémonie d'ouverture</span></article>
+      <article><span class="quand">Lundi 21 au vendredi 25 décembre</span><span class="heure">17h30 – 21h30</span><span class="quoi">Soirées d'adoration</span></article>
+      <article><span class="quand">Samedi 26 décembre</span><span class="heure">09h00 – 13h00</span><span class="quoi">Cérémonie de clôture</span></article>
+    </div>
+    <ol class="jours">
+      <li class="fort"><span class="j">Dim</span><span class="n">20</span><span class="s">Ouverture</span></li>
+      <li><span class="j">Lun</span><span class="n">21</span><span class="s">17h30</span></li>
+      <li><span class="j">Mar</span><span class="n">22</span><span class="s">17h30</span></li>
+      <li><span class="j">Mer</span><span class="n">23</span><span class="s">17h30</span></li>
+      <li><span class="j">Jeu</span><span class="n">24</span><span class="s">17h30</span></li>
+      <li><span class="j">Ven</span><span class="n">25</span><span class="s">17h30</span></li>
+      <li class="fort"><span class="j">Sam</span><span class="n">26</span><span class="s">Clôture</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ Plan du tabernacle ============ -->
+<section id="tabernacle" class="alt">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Comprendre le thème</span><h2 class="or">Le Tabernacle de l'Éternel</h2><div class="filet"></div>
+      <p>Touchez chaque élément du plan pour découvrir sa place et son sens dans la demeure que Dieu fit dresser au milieu de son peuple.</p></div>
+    <div class="plan">
+      <svg viewBox="0 0 720 300" role="group" aria-label="Plan du tabernacle">
+        <rect x="24" y="34" width="672" height="214" fill="#f6e7c6" stroke="#a87722" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+        <rect x="24" y="34" width="672" height="214" fill="none" stroke="#a87722" stroke-width="1"/>
+        <rect x="372" y="84" width="300" height="114" fill="#fff8e6" stroke="#c9972f" stroke-width="6"/>
+        <text x="190" y="274" text-anchor="middle" font-size="15" font-weight="600">Parvis</text>
+        <text x="468" y="274" text-anchor="middle" font-size="15" font-weight="600">Lieu saint</text>
+        <text x="624" y="274" text-anchor="middle" font-size="15" font-weight="600">Lieu très saint</text>
+        <path d="M40 256h300M380 256h186M584 256h86" stroke="#3d2018" stroke-width="1.5" fill="none"/>
+        <text x="12" y="146" font-size="15" fill="#b3121d" font-weight="700">➜</text>
+        <g class="pt" data-k="porte" tabindex="0" role="button" aria-label="La porte du parvis">
+          <rect class="halo" x="10" y="92" width="30" height="98" rx="6"/>
+          <rect x="21" y="102" width="6" height="26" fill="#22408f"/><rect x="21" y="128" width="6" height="26" fill="#6a2a8c"/><rect x="21" y="154" width="6" height="26" fill="#b3121d"/>
+        </g>
+        <g class="pt" data-k="autel" tabindex="0" role="button" aria-label="L'autel des holocaustes">
+          <rect class="halo" x="92" y="100" width="82" height="82" rx="8"/>
+          <rect x="106" y="114" width="54" height="54" fill="#b5651d" stroke="#6b3a10" stroke-width="3"/><circle cx="133" cy="141" r="15" fill="#ff9a1f"/><circle cx="133" cy="141" r="8" fill="#ffe08a"/>
+        </g>
+        <g class="pt" data-k="cuve" tabindex="0" role="button" aria-label="La cuve d'airain">
+          <rect class="halo" x="226" y="104" width="74" height="74" rx="8"/>
+          <circle cx="263" cy="141" r="24" fill="#c98a3a" stroke="#6b3a10" stroke-width="3"/><circle cx="263" cy="141" r="16" fill="#3aa0e8"/>
+        </g>
+        <g class="pt" data-k="chandelier" tabindex="0" role="button" aria-label="Le chandelier d'or">
+          <rect class="halo" x="424" y="88" width="76" height="36" rx="8"/>
+          <path d="M438 112h48M444 112v-10M453 112v-12M462 112v-14M471 112v-12M480 112v-10" stroke="#c9972f" stroke-width="3.500" fill="none" stroke-linecap="round"/>
+          <circle cx="444" cy="99" r="2.500" fill="#ff9a1f"/><circle cx="453" cy="97" r="2.500" fill="#ff9a1f"/><circle cx="462" cy="95" r="2.500" fill="#ff9a1f"/><circle cx="471" cy="97" r="2.500" fill="#ff9a1f"/><circle cx="480" cy="99" r="2.500" fill="#ff9a1f"/>
+        </g>
+        <g class="pt" data-k="table" tabindex="0" role="button" aria-label="La table des pains de proposition">
+          <rect class="halo" x="420" y="154" width="84" height="40" rx="8"/>
+          <rect x="432" y="162" width="60" height="24" fill="#c9972f" stroke="#6b3a10" stroke-width="2"/><circle cx="450" cy="174" r="7" fill="#b5651d"/><circle cx="474" cy="174" r="7" fill="#b5651d"/>
+        </g>
+        <g class="pt" data-k="parfums" tabindex="0" role="button" aria-label="L'autel des parfums">
+          <rect class="halo" x="520" y="120" width="42" height="42" rx="8"/>
+          <rect x="531" y="131" width="20" height="20" fill="#e9bd55" stroke="#6b3a10" stroke-width="2"/><circle cx="541" cy="141" r="4" fill="#6a2a8c"/>
+        </g>
+        <g class="pt" data-k="voile" tabindex="0" role="button" aria-label="Le voile">
+          <rect class="halo" x="565" y="82" width="22" height="118" rx="6"/>
+          <rect x="573" y="88" width="6" height="36" fill="#22408f"/><rect x="573" y="124" width="6" height="36" fill="#6a2a8c"/><rect x="573" y="160" width="6" height="34" fill="#b3121d"/>
+        </g>
+        <g class="pt" data-k="arche" tabindex="0" role="button" aria-label="L'arche de l'alliance">
+          <rect class="halo" x="596" y="106" width="66" height="70" rx="8"/>
+          <rect x="610" y="124" width="38" height="34" fill="#e9bd55" stroke="#8a5f17" stroke-width="3"/><path d="M604 132h50M604 150h50" stroke="#8a5f17" stroke-width="3"/><circle cx="629" cy="141" r="7" fill="#fff6c9"/>
+        </g>
+      </svg>
+    </div>
+    <div class="puces" id="puces"></div>
+    <div class="sens" aria-live="polite"><span class="z" id="sens-z"></span><h3 id="sens-t"></h3><p id="sens-p"></p><span class="ref" id="sens-r"></span></div>
+  </div>
+</section>
+
+<!-- ============ Orateurs ============ -->
+<section id="orateurs">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Ils porteront la Parole</span><h2 class="or">Les hommes de Dieu</h2><div class="filet"></div></div>
+    <div class="grands">
+      <figure><img src="a/brou.jpg" alt="Rév. Apôtre BROU François"><span class="role">Hôte</span><span class="t">Rév. Apôtre</span><h3>BROU François</h3><span class="e">Président fondateur des Églises MICASE</span></figure>
+      <figure><img src="a/kouassi.jpg" alt="Rév. Docteur KOUASSI Thomas"><span class="role">Invité spécial</span><span class="t">Rév. Docteur</span><h3>KOUASSI Thomas</h3><span class="e">EPBOMI</span></figure>
+      <figure><img src="a/dja.jpg" alt="Rév. Pasteur DJA Serges"><span class="role">Orateur</span><span class="t">Rév. Pasteur</span><h3>DJA Serges</h3><span class="e">Églises AME · Agboville</span></figure>
+    </div>
+    <div class="soustitre">Plusieurs oints de l'Éternel</div>
+    <div class="oints">
+      <figure><img src="a/daly.jpg" alt="Évangéliste Daly GUIGLAI"><span class="t">Évangéliste</span><h3>Daly GUIGLAI</h3><span class="e">MESER</span></figure>
+      <figure><img src="a/kouakou.jpg" alt="Évangéliste Constant KOUAKOU"><span class="t">Évangéliste</span><h3>Constant KOUAKOU</h3><span class="e">MICASE</span></figure>
+      <figure><img src="a/ngoran.jpg" alt="Pasteur Paul-Gérard N'GORAN"><span class="t">Pasteur</span><h3>Paul-Gérard N'GORAN</h3><span class="e">MICASE</span></figure>
+      <figure><img src="a/yapi.jpg" alt="Pasteur YAPI Jean-Marie"><span class="t">Pasteur</span><h3>YAPI Jean-Marie</h3><span class="e">MICASE</span></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Spot ============ -->
+<section id="spot" class="alt">
+  <div class="wrap">
+    <div class="tete"><span class="sur">En images</span><h2 class="or">Le spot officiel</h2><div class="filet"></div></div>
+    <div class="spot">
+      <video id="video" controls playsinline preload="none" poster="a/spot_poster.jpg" src="a/spot.mp4"></video>
+      <div class="dit">
+        <blockquote>« Sept jours pour entrer dans le Tabernacle de l'Éternel et adorer Sa Majesté. »</blockquote>
+        <cite>ADORONS SA MAJESTÉ · 13<sup>e</sup> ÉDITION</cite>
+        <img src="a/affiche.jpg" alt="Affiche officielle Adorons Sa Majesté, 13e édition" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Lieu ============ -->
+<section id="lieu">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Où nous trouver</span><h2 class="or">Localisation du temple</h2><div class="filet"></div></div>
+    <div class="lieu">
+      <a class="carte" id="lien-carte" href="https://maps.app.goo.gl/RycKJpn8MJLeYJRU6" target="_blank" rel="noopener" aria-label="Ouvrir l'itinéraire dans Google Maps">
+        <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path fill="#d81f2c" stroke="#f8e3a1" stroke-width="1" d="M12 1.5c-4.1 0-7.5 3.3-7.5 7.4 0 5.4 7.5 13.6 7.5 13.6s7.5-8.2 7.5-13.6c0-4.1-3.4-7.4-7.5-7.4z"/><circle cx="12" cy="9" r="2.8" fill="#f8e3a1"/></svg>
+        <span>Ouvrir dans Google Maps</span>
+      </a>
+      <div class="adresse">
+        <span class="sur">Église MICASE</span>
+        <h3>Yopougon Niangon</h3>
+        <p><strong>Coprim Texaco</strong> · Carrefour Bar Éclat<br>Abidjan, Côte d'Ivoire</p>
+        <p>Touchez la carte pour lancer l'itinéraire depuis votre position.</p>
+        <a class="btn dore" id="lien-carte2" href="https://maps.app.goo.gl/RycKJpn8MJLeYJRU6" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 11.3l-9-9a1 1 0 00-1.4 0l-9 9a1 1 0 000 1.4l9 9a1 1 0 001.4 0l9-9a1 1 0 000-1.4zM14 14.5V12h-4v3H8v-4a1 1 0 011-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+          Lancer l'itinéraire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Présence ============ -->
+<section id="presence" class="alt">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Répondez à l'invitation</span><h2 class="or">Serez-vous des nôtres ?</h2><div class="filet"></div></div>
+    <div class="compte" id="compte" hidden><b class="or" id="compte-n">0</b><span id="compte-t">personnes ont déjà confirmé leur présence</span></div>
+    <div class="duo">
+      <div class="bloc">
+        <h3>Je confirme ma présence</h3>
+        <p>Un message prêt s'ouvre dans WhatsApp, à votre nom. Il ne vous reste qu'à l'envoyer à l'église.</p>
+        <a class="btn vert" id="confirmer" href="https://wa.me/2250555239392" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          Confirmer sur WhatsApp</a>
+      </div>
+      <div class="bloc">
+        <h3>J'invite un proche</h3>
+        <p>Partagez cette invitation avec votre famille, vos amis et vos collègues. Personne ne doit manquer ces 7 jours.</p>
+        <a class="btn ligne" id="inviter" href="https://wa.me/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.500 10.700l7-4M8.500 13.300l7 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          Partager sur WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Ma carte ============ -->
+<section id="carte">
+  <div class="wrap">
+    <div class="tete"><span class="sur">À votre nom</span><h2 class="or">Ma carte d'invitation</h2><div class="filet"></div></div>
+    <div class="macarte">
+      <img id="carte-img" alt="Votre carte d'invitation personnalisée" src="a/affiche.jpg">
+      <div class="txt">
+        <h3 id="carte-titre">Votre carte est prête</h3>
+        <p>Enregistrez-la dans votre téléphone, mettez-la en statut WhatsApp et envoyez-la à vos proches.</p>
+        <div class="btns">
+          <button class="btn dore" id="carte-dl" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
+            Télécharger ma carte</button>
+          <button class="btn vert" id="carte-part" type="button" hidden>Partager ma carte</button>
+        </div>
+        <p id="carte-msg" role="status">Vous pouvez aussi garder le doigt appuyé sur l'image, puis choisir « Enregistrer l'image ».</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Galerie ============ -->
+<section id="galerie" class="alt">
+  <div class="wrap">
+    <div class="tete"><span class="sur">La MICASE en images</span><h2 class="or">Un peuple qui adore</h2><div class="filet"></div></div>
+    <div class="galerie">
+      <img src="a/g1.jpg" alt="Un frère en prière pendant le culte" loading="lazy"><img src="a/g2.jpg" alt="Une sœur les mains levées en adoration" loading="lazy"><img src="a/g3.jpg" alt="Une sœur en adoration devant l'autel" loading="lazy">
+      <img src="a/g4.jpg" alt="Les chantres pendant la louange" loading="lazy"><img src="a/g5.jpg" alt="L'assemblée en louange" loading="lazy"><img src="a/g6.jpg" alt="La prédication" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ Contacts ============ -->
+<section id="contacts">
+  <div class="wrap">
+    <div class="tete"><span class="sur">Infos &amp; contacts</span><h2 class="or">Restons en lien</h2><div class="filet"></div></div>
+    <div class="tels">
+      <div class="tel"><b>+225 05 05 80 00 22</b><button type="button" data-copie="+2250505800022">Copier</button></div>
+      <div class="tel"><b>+225 07 08 26 46 71</b><button type="button" data-copie="+2250708264671">Copier</button></div>
+    </div>
+    <div class="soustitre">Suivez-nous : Église MICASE TV</div>
+    <div class="reseaux">
+      <a class="fb" id="lien-fb" href="https://www.facebook.com/share/1Qa5rUrUbq/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M13.500 22v-8h2.700l.4-3.200h-3.100V8.800c0-.9.300-1.500 1.600-1.500h1.700V4.400C16.500 4.300 15.500 4.200 14.400 4.200c-2.400 0-4 1.500-4 4.100v2.500H7.700V14h2.700v8h3.100z"/></svg>
+        Facebook<small>Église MICASE TV</small></a>
+      <a class="yt" id="lien-yt" href="https://youtube.com/@eglisemicasetv7547" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M21.600 7.200a2.500 2.500 0 00-1.800-1.800C18.200 5 12 5 12 5s-6.200 0-7.800.4A2.500 2.500 0 002.400 7.200C2 8.800 2 12 2 12s0 3.200.4 4.800a2.500 2.500 0 001.800 1.800C5.800 19 12 19 12 19s6.200 0 7.800-.4a2.500 2.500 0 001.800-1.800c.4-1.600.4-4.800.4-4.800s0-3.200-.4-4.800zM10 15V9l5.200 3-5.200 3z"/></svg>
+        YouTube<small>Église MICASE TV</small></a>
+      <a class="tt" id="lien-tt" href="https://www.tiktok.com/@micasetv" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.500 3c.3 2 1.500 3.500 3.500 3.800v3c-1.300 0-2.500-.4-3.500-1.100v6.000a5.700 5.700 0 11-5.700-5.700c.3 0 .6 0 .9.100v3.100a2.700 2.700 0 101.800 2.500V3h3z"/></svg>
+        TikTok<small>@micasetv</small></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="a/logo.png" alt="Logo MICASE">
+    <div class="b">Que Dieu vous bénisse !</div>
+    <p>Mission Chrétienne les Actes du Saint-Esprit · MICASE</p>
+    <p>Adorons Sa Majesté, 13<sup>e</sup> édition · 20 au 26 décembre 2026 · Yopougon Niangon</p>
+  </div>
+</footer>
+
+<button id="son" type="button" aria-pressed="false" hidden><span class="barres"><i></i><i></i><i></i><i></i></span><span id="son-txt">Musique</span></button>
+<audio id="musique" src="a/musique.mp3" loop preload="none"></audio>
+
+<script>
+(function(){
+  // Adresse publique du site, utilisée dans le bouton « Partager »
+  var EXTERNE = !window.claude && /^https?:$/.test(location.protocol) && !/claude|anthropic/i.test(location.hostname);
+  var LIEN_SITE = EXTERNE ? (location.origin + location.pathname) : "https://claude.ai/artifact/5LRX6Z16wnR7t4HKjvBUoM";
+  var $ = function(id){ return document.getElementById(id); };
+  var porte = $('porte'), nom = $('nom'), musique = $('musique'), son = $('son'), video = $('video');
+  var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ----- Mémoire légère du nom -----
+  try{
+    var m = JSON.parse(localStorage.getItem('asm-invite') || 'null');
+    if(m){ nom.value = m.nom || ''; var r = document.querySelector('input[name=civ][value="'+m.civ+'"]'); if(r) r.checked = true; }
+  }catch(e){}
+
+  var invite = {civ:'Monsieur', nom:'', appel:'', accord:'invité(e)'};
+  function propre(s){ return s.replace(/[<>]/g,'').replace(/\s+/g,' ').trim(); }
+
+  function personnaliser(){
+    var civ = document.querySelector('input[name=civ]:checked').value;
+    var n = propre(nom.value);
+    var h = new Date().getHours();
+    var bon = (h >= 18 || h < 5) ? 'Bonsoir' : 'Bonjour';
+    var accord = civ === 'Monsieur' ? 'invité' : 'invitée';
+    var appel = n ? (civ + ' ' + n) : civ;
+    var salut = $('salut'); salut.textContent = '';
+    var b = document.createElement('b'); b.textContent = bon + ' ' + appel + ',';
+    salut.appendChild(b); salut.appendChild(document.createElement('br'));
+    salut.appendChild(document.createTextNode('vous êtes cordialement ' + accord + ' à'));
+    $('c-bon').textContent = bon; $('c-nom').textContent = appel;
+    $('c-acc').textContent = 'vous êtes cordialement ' + accord + ' à';
+    var qui = n ? (civ + ' ' + n) : 'Un(e) invité(e)';
+    var msg = 'Bonjour, je suis ' + qui + '. Je confirme ma présence à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026 à l\'Église MICASE Yopougon Niangon. Que Dieu vous bénisse !';
+    if(!n) msg = 'Bonjour, je confirme ma présence à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026 à l\'Église MICASE Yopougon Niangon. Que Dieu vous bénisse !';
+    $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(msg);
+    var inv = '✨ Vous êtes invité(e) à ADORONS SA MAJESTÉ, 13e édition ✨\nThème : « LE TABERNACLE DE L\'ÉTERNEL »\n📅 Du dimanche 20 au samedi 26 décembre 2026\n📍 Église MICASE, Yopougon Niangon (Coprim Texaco, Carrefour Bar Éclat)\n' + (LIEN_SITE ? '\nOuvrez votre invitation ici 👉 ' + LIEN_SITE : '');
+    $('inviter').href = 'https://wa.me/?text=' + encodeURIComponent(inv);
+    invite = {civ:civ, nom:n, appel:appel, accord:accord};
+    try{ localStorage.setItem('asm-invite', JSON.stringify({civ:civ, nom:n})); }catch(e){}
+    dessinerCarte();
+  }
+  personnaliser();
+
+  // ----- Musique -----
+  var veutSon = false, fondu = null;
+  function monter(){
+    clearInterval(fondu); musique.volume = 0;
+    var p = musique.play(); if(p && p.catch) p.catch(function(){ etat(false); });
+    fondu = setInterval(function(){ musique.volume = Math.min(.85, musique.volume + .05); if(musique.volume >= .85) clearInterval(fondu); }, 120);
+    etat(true);
+  }
+  function couper(){ clearInterval(fondu); musique.pause(); etat(false); }
+  function etat(on){ son.classList.toggle('joue', on); son.setAttribute('aria-pressed', on); $('son-txt').textContent = on ? 'Couper la musique' : 'Activer la musique'; }
+  son.addEventListener('click', function(){ if(musique.paused){ veutSon = true; if(!video.paused) video.pause(); monter(); } else { veutSon = false; couper(); } });
+  video.addEventListener('play', function(){ if(!musique.paused) couper(); });
+  video.addEventListener('pause', function(){ if(veutSon) monter(); });
+  video.addEventListener('ended', function(){ if(veutSon) monter(); });
+
+  // ----- Ouverture du voile -----
+  $('formulaire').addEventListener('submit', function(e){
+    e.preventDefault(); personnaliser();
+    veutSon = true; monter(); son.hidden = false;
+    porte.classList.add('ouvre');
+    var c3 = $('c3');
+    if(calme){ c3.style.visibility = 'visible'; }
+    else {
+      setTimeout(function(){ c3.classList.add('vol'); }, 500);
+      c3.addEventListener('animationend', function(){ c3.style.visibility = 'visible'; c3.classList.remove('vol'); flotter(); }, {once:true});
+    }
+    setTimeout(function(){ porte.hidden = true; }, calme ? 0 : 2100);
+  });
+
+  // Le carton flotte et suit le doigt ou la souris
+  var vise = {x:0, y:0}, cur = {x:0, y:0}, enScene = true;
+  function flotter(){
+    var c3 = $('c3'), sc = $('scene');
+    sc.addEventListener('pointermove', function(e){ vise.x = (e.clientX / innerWidth - .5) * 2; vise.y = (e.clientY / innerHeight - .5) * 2; });
+    (function f(t){
+      if(!enScene) return;
+      cur.x += (vise.x - cur.x) * .08; cur.y += (vise.y - cur.y) * .08;
+      var ry = cur.x * 16 + Math.sin(t / 1300) * 7, rx = -cur.y * 12 + Math.cos(t / 1700) * 4;
+      c3.style.transform = 'translateY(' + (Math.sin(t / 1000) * 7).toFixed(2) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+      requestAnimationFrame(f);
+    })(0);
+  }
+  $('entrer').addEventListener('click', function(){
+    enScene = false;
+    var sc = $('scene'), c3 = $('c3');
+    c3.style.transition = 'transform .9s cubic-bezier(.6,0,.8,.4)'; c3.style.transform = 'translateZ(1100px) rotateX(-24deg)';
+    sc.classList.add('sort'); $('braises').style.zIndex = 1;
+    scrollTo(0, 0);
+    document.querySelector('.heros h1').classList.add('vie');
+    ['.orga','.salut','.theme','.dates'].forEach(function(q, i){ var el = document.querySelector(q); if(el){ el.classList.add('entre'); el.classList.add('d'+(i+1)); } });
+    setTimeout(function(){ sc.hidden = true; }, 950);
+  });
+
+  // ----- Apparitions en relief au défilement -----
+  if(!calme && 'IntersectionObserver' in window){
+    document.body.classList.add('anime');
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var el = e.target; el.classList.add('vu'); io.unobserve(el); setTimeout(function(){ el.style.transitionDelay = ''; }, 1600); } }); }, {threshold:.12});
+    document.querySelectorAll('.tete,.temps article,.jours li,.grands figure,.oints figure,.spot>*,.lieu>*,.bloc,.tel,.reseaux a,.plan,.sens,.macarte,.galerie img,.compte,.mot>*').forEach(function(el){
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.classList.add('r3'); el.style.transitionDelay = (i * .09) + 's'; io.observe(el);
+    });
+  }
+  // ----- Inclinaison 3D sous la souris -----
+  if(!calme && matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.temps article,.grands figure,.bloc,.reseaux a,.adresse,.carte').forEach(function(el){
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.classList.add('penche'); el.style.transform = 'perspective(700px) rotateX(' + (-y * 12).toFixed(1) + 'deg) rotateY(' + (x * 14).toFixed(1) + 'deg) translateZ(10px)';
+      });
+      el.addEventListener('pointerleave', function(){ el.style.transform = ''; setTimeout(function(){ el.classList.remove('penche'); }, 200); });
+    });
+  }
+
+  // ----- Rubriques -----
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){ var c = document.querySelector(a.getAttribute('href')); if(c){ e.preventDefault(); c.scrollIntoView({behavior: calme ? 'auto' : 'smooth', block:'start'}); } });
+  });
+
+  // ----- Compte à rebours puis mode « en direct » (Abidjan = GMT) -----
+  var J = [[20,14,0,18,0,"Cérémonie d'ouverture"],[21,17,30,21,30,"Soirée d'adoration"],[22,17,30,21,30,"Soirée d'adoration"],[23,17,30,21,30,"Soirée d'adoration"],
+           [24,17,30,21,30,"Soirée d'adoration"],[25,17,30,21,30,"Soirée d'adoration"],[26,9,0,13,0,"Cérémonie de clôture"]];
+  var SEM = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  var debut = Date.UTC(2026, 11, 20, 14, 0, 0), fin = Date.UTC(2026, 11, 26, 13, 0, 0);
+  function deux(x){ return (x < 10 ? '0' : '') + x; }
+  function hm(h, m){ return h + 'h' + deux(m); }
+  function tic(){
+    var now = Date.now(), d = debut - now;
+    if(d > 0){
+      var s = Math.floor(d / 1000);
+      $('cj').textContent = Math.floor(s / 86400); $('ch').textContent = deux(Math.floor(s % 86400 / 3600));
+      $('cm').textContent = deux(Math.floor(s % 3600 / 60)); $('cs').textContent = deux(s % 60);
+      return;
+    }
+    $('rebours').hidden = true;
+    var box = $('direct'); box.hidden = false;
+    if(now >= fin){
+      box.classList.remove('live'); $('direct-etat').textContent = 'Merci pour ces 7 jours bénis';
+      $('direct-quand').textContent = 'Revivez les temps forts sur nos pages Église MICASE TV.'; clearInterval(horloge); return;
+    }
+    for(var i = 0; i < J.length; i++){
+      var a = Date.UTC(2026, 11, J[i][0], J[i][1], J[i][2]), z = Date.UTC(2026, 11, J[i][0], J[i][3], J[i][4]);
+      if(now < z){
+        var jour = SEM[new Date(a).getUTCDay()] + ' ' + J[i][0] + ' décembre';
+        if(now >= a){ box.classList.add('live'); $('direct-etat').textContent = 'En direct · Jour ' + (i + 1) + ' sur 7';
+          $('direct-quand').textContent = J[i][5] + " en cours, jusqu'à " + hm(J[i][3], J[i][4]) + '. Venez ou suivez le direct.'; }
+        else { box.classList.remove('live'); $('direct-etat').textContent = 'Jour ' + (i + 1) + ' sur 7';
+          $('direct-quand').textContent = J[i][5] + ' : ' + jour + ', de ' + hm(J[i][1], J[i][2]) + ' à ' + hm(J[i][3], J[i][4]) + '.'; }
+        return;
+      }
+    }
+  }
+  var horloge = setInterval(tic, 1000); tic();
+
+  // ----- Compteur des confirmations (sans les noms) -----
+  var API = 'https://abacus.jasoncameron.dev/', CLE = 'micase-adorons-sa-majeste-13e/confirmations';
+  function afficherCompte(v){
+    if(typeof v !== 'number' || v < 1) return;
+    $('compte-n').textContent = v;
+    $('compte-t').textContent = v > 1 ? 'personnes ont déjà confirmé leur présence' : 'personne a déjà confirmé sa présence';
+    $('compte').hidden = false;
+    var m = $('mini-compte'); m.textContent = v > 1 ? (v + ' personnes ont déjà confirmé leur présence') : '1 personne a déjà confirmé sa présence'; m.hidden = false;
+  }
+  function lireCompte(){
+    if(document.hidden) return;
+    fetch(API + 'get/' + CLE, {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if(j) afficherCompte(j.value); }).catch(function(){});
+  }
+  lireCompte(); setInterval(lireCompte, 30000);
+  $('confirmer').addEventListener('click', function(){
+    var deja = false; try{ deja = localStorage.getItem('asm-confirme') === '1'; }catch(e){}
+    if(deja) return;
+    try{ localStorage.setItem('asm-confirme', '1'); }catch(e){}
+    fetch(API + 'hit/' + CLE, {cache:'no-store', keepalive:true}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if(j) afficherCompte(j.value); }).catch(function(){});
+  });
+
+  // ----- Plan du tabernacle -----
+  var PLAN = {
+    porte:{z:'Parvis', t:'La porte du parvis', p:"Une seule entrée, tournée vers l'est, fermée par un rideau bleu, pourpre et cramoisi. On n'entre dans la présence de Dieu que par le chemin qu'Il a Lui-même ouvert.", r:'Exode 27.16 · Jean 10.9'},
+    autel:{z:'Parvis', t:"L'autel des holocaustes", p:"Premier objet rencontré en entrant : un autel de bois d'acacia couvert d'airain, où l'on offrait les sacrifices. L'adoration commence par le sacrifice.", r:'Exode 27.1-8'},
+    cuve:{z:'Parvis', t:"La cuve d'airain", p:"Les sacrificateurs s'y lavaient les mains et les pieds avant de servir. On s'approche de Dieu avec un cœur purifié.", r:'Exode 30.17-21'},
+    chandelier:{z:'Lieu saint', t:"Le chandelier d'or", p:"Fait d'or pur, avec ses sept lampes, il était la seule lumière du lieu saint et devait brûler continuellement.", r:'Exode 25.31-40'},
+    table:{z:'Lieu saint', t:'La table des pains de proposition', p:"Douze pains, un pour chaque tribu d'Israël, étaient placés en permanence devant l'Éternel.", r:'Exode 25.23-30'},
+    parfums:{z:'Lieu saint', t:"L'autel des parfums", p:"Placé juste devant le voile, on y faisait brûler l'encens matin et soir. L'Écriture compare la prière à cet encens qui monte vers Dieu.", r:'Exode 30.1-10 · Psaume 141.2'},
+    voile:{z:'Entre le lieu saint et le lieu très saint', t:'Le voile', p:"Il séparait le lieu saint du lieu très saint, où seul le souverain sacrificateur entrait, une fois par an. À la mort de Jésus, le voile du temple s'est déchiré de haut en bas.", r:'Exode 26.31-33 · Matthieu 27.51'},
+    arche:{z:'Lieu très saint', t:"L'arche de l'alliance", p:"Couverte du propitiatoire et de ses deux chérubins d'or, elle est le lieu où Dieu promet de rencontrer son peuple. C'est le cœur du tabernacle.", r:'Exode 25.10-22'}
+  };
+  function montrer(k){
+    var d = PLAN[k]; if(!d) return;
+    $('sens-z').textContent = d.z; $('sens-t').textContent = d.t; $('sens-p').textContent = d.p; $('sens-r').textContent = d.r;
+    document.querySelectorAll('.plan .pt').forEach(function(g){ g.classList.toggle('actif', g.dataset.k === k); });
+    document.querySelectorAll('#puces button').forEach(function(b){ b.classList.toggle('actif', b.dataset.k === k); });
+  }
+  Object.keys(PLAN).forEach(function(k){
+    var b = document.createElement('button'); b.type = 'button'; b.dataset.k = k; b.textContent = PLAN[k].t.replace(/^(La |Le |L')/, ''); b.textContent = b.textContent.charAt(0).toUpperCase() + b.textContent.slice(1);
+    b.addEventListener('click', function(){ montrer(k); }); $('puces').appendChild(b);
+  });
+  document.querySelectorAll('.plan .pt').forEach(function(g){
+    g.addEventListener('click', function(){ montrer(g.dataset.k); });
+    g.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); montrer(g.dataset.k); } });
+  });
+  montrer('arche');
+
+  // ----- Carte d'invitation au nom de la personne -----
+  var toile = document.createElement('canvas'); toile.width = 1080; toile.height = 1350;
+  var imgs = {}, pretes = 0, carteBlob = null;
+  ['tab','logo'].forEach(function(k){ var im = new Image(); im.onload = im.onerror = function(){ pretes++; if(pretes === 2) dessinerCarte(); }; im.src = k === 'tab' ? 'a/tab.jpg' : 'a/logo.png'; imgs[k] = im; });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ dessinerCarte(); });
+  function dessinerCarte(){
+    if(!(pretes >= 2)) return;
+    var c = toile.getContext('2d'), W = 1080, H = 1350, T = '"Cinzel",Georgia,serif', P = '"Poppins",Arial,sans-serif', SC = '"Cormorant Garamond",Georgia,serif';
+    function centre(txt, y, font, fill, esp){ c.font = font; c.fillStyle = fill; c.textAlign = 'center'; try{ c.letterSpacing = (esp || 0) + 'px'; }catch(e){} c.fillText(txt, W / 2, y); try{ c.letterSpacing = '0px'; }catch(e){} }
+    function ajuste(txt, y, poids, fam, max, taille, fill){ var t = taille; do { c.font = poids + ' ' + t + 'px ' + fam; t -= 2; } while(c.measureText(txt).width > max && t > 24); c.fillStyle = fill; c.textAlign = 'center'; c.fillText(txt, W / 2, y); }
+    function dore(y0, y1){ var g = c.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#f8e3a1'); g.addColorStop(.5, '#e9bd55'); g.addColorStop(1, '#a87722'); return g; }
+    c.fillStyle = '#12060a'; c.fillRect(0, 0, W, H);
+    var im = imgs.tab;
+    if(im.naturalWidth){ var e = Math.max(W / im.naturalWidth, 820 / im.naturalHeight), w = im.naturalWidth * e, h = im.naturalHeight * e; c.drawImage(im, (W - w) / 2, H - h, w, h); }
+    var g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#3a0b12'); g.addColorStop(.4, 'rgba(42,9,14,.97)'); g.addColorStop(.62, 'rgba(18,6,10,.62)'); g.addColorStop(.82, 'rgba(18,6,10,.5)'); g.addColorStop(1, 'rgba(18,6,10,.94)');
+    c.fillStyle = g; c.fillRect(0, 0, W, H);
+    c.strokeStyle = '#e9bd55'; c.lineWidth = 5; c.strokeRect(28, 28, W - 56, H - 56); c.lineWidth = 1.5; c.strokeRect(42, 42, W - 84, H - 84);
+    if(imgs.logo.naturalWidth) c.drawImage(imgs.logo, W / 2 - 62, 66, 124, 124);
+    centre('INVITATION OFFICIELLE', 236, '600 26px ' + P, '#e9bd55', 10);
+    c.shadowColor = 'rgba(0,0,0,.6)'; c.shadowBlur = 14;
+    if(invite.nom){ ajuste(invite.appel, 318, '700', T, 920, 64, '#ffffff'); centre('est cordialement ' + invite.accord + ' à', 378, 'italic 500 46px ' + SC, '#f7eedd'); }
+    else { ajuste('Vous êtes', 312, '700', T, 920, 58, '#ffffff'); centre('cordialement invité(e) à', 376, 'italic 500 46px ' + SC, '#f7eedd'); }
+    centre('ADORONS', 502, '900 124px ' + T, '#ffffff');
+    centre('SA', 548, '700 34px ' + T, '#f7eedd', 22);
+    centre('MAJESTÉ', 664, '900 132px ' + T, dore(560, 670));
+    c.shadowBlur = 0;
+    c.fillStyle = '#22408f'; c.fillRect(W / 2 - 130, 694, 260, 46); centre('13ᵉ ÉDITION', 727, '700 24px ' + P, '#ffffff', 6);
+    c.fillStyle = '#e9bd55'; c.fillRect(190, 770, 700, 2); c.fillRect(190, 846, 700, 2);
+    centre("« LE TABERNACLE DE L'ÉTERNEL »", 822, '700 40px ' + T, '#ffffff');
+    c.fillStyle = '#b3121d'; c.fillRect(120, 880, 840, 84);
+    centre('DU DIMANCHE 20 AU SAMEDI 26 DÉCEMBRE 2026', 934, '700 31px ' + P, '#ffffff', 1);
+    c.fillStyle = 'rgba(247,238,221,.95)'; c.fillRect(120, 986, 840, 176);
+    var L = [['Dimanche 20', "14h00 – 18h00 · Cérémonie d'ouverture"], ['Lundi 21 au vendredi 25', "17h30 – 21h30 · Soirées d'adoration"], ['Samedi 26', '09h00 – 13h00 · Cérémonie de clôture']];
+    L.forEach(function(l, i){ var y = 1034 + i * 52; c.textAlign = 'left'; c.font = '700 26px ' + P; c.fillStyle = '#b3121d'; c.fillText(l[0], 146, y); var w = c.measureText(l[0]).width; c.font = '500 25px ' + P; c.fillStyle = '#25090d'; c.fillText('  ' + l[1], 146 + w, y); });
+    centre('ÉGLISE MICASE · YOPOUGON NIANGON', 1216, '700 30px ' + P, '#f8e3a1', 2);
+    centre('Coprim Texaco · Carrefour Bar Éclat', 1254, '500 25px ' + P, '#f7eedd');
+    centre('Infos : 05 05 80 00 22  /  07 08 26 46 71', 1294, '600 25px ' + P, '#ffffff');
+    try{
+      $('carte-img').src = toile.toDataURL('image/jpeg', .9);
+      toile.toBlob(function(b){ carteBlob = b; preparerPartage(); }, 'image/jpeg', .92);
+      $('carte-titre').textContent = invite.nom ? ('Carte au nom de ' + invite.appel) : 'Votre carte est prête';
+    }catch(e){}
+  }
+  function nomFichier(){ var n = (invite.nom || 'invite').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, ''); return 'Invitation_Adorons_Sa_Majeste_' + (n || 'invite') + '.jpg'; }
+  var telech = null;
+  if(window.claude && window.claude.use) window.claude.use('downloads').then(function(d){ telech = d; }, function(){});
+  function dire(m){ $('carte-msg').textContent = m; }
+  function preparerPartage(){
+    try{ var f = new File([carteBlob], nomFichier(), {type:'image/jpeg'}); if(EXTERNE && navigator.canShare && navigator.canShare({files:[f]})) $('carte-part').hidden = false; }catch(e){}
+  }
+  $('carte-dl').addEventListener('click', function(){
+    if(!carteBlob){ dire("La carte se prépare, réessayez dans un instant."); return; }
+    if(telech){ telech.save({filename:nomFichier(), data:carteBlob}).then(function(){ dire('Carte enregistrée.'); }, function(){ dire("Gardez le doigt appuyé sur l'image, puis choisissez « Enregistrer l'image »."); }); return; }
+    try{
+      var u = URL.createObjectURL(carteBlob), a = document.createElement('a'); a.href = u; a.download = nomFichier(); document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(u); }, 4000);
+      dire(EXTERNE ? 'Téléchargement lancé. Retrouvez la carte dans vos photos ou vos téléchargements.' : "Gardez le doigt appuyé sur l'image, puis choisissez « Enregistrer l'image ».");
+    }catch(e){ dire("Gardez le doigt appuyé sur l'image, puis choisissez « Enregistrer l'image »."); }
+  });
+  $('carte-part').addEventListener('click', function(){
+    try{ var f = new File([carteBlob], nomFichier(), {type:'image/jpeg'});
+      navigator.share({files:[f], text:'Vous êtes invité(e) à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026. ' + LIEN_SITE}).catch(function(){});
+    }catch(e){}
+  });
+
+  // ----- Copier un numéro -----
+  document.querySelectorAll('[data-copie]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var fait = function(){ b.textContent = 'Copié'; setTimeout(function(){ b.textContent = 'Copier'; }, 1600); };
+      var secours = function(){ var r = document.createRange(); r.selectNodeContents(b.previousElementSibling); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Sélectionné'; };
+      try{ navigator.clipboard.writeText(b.dataset.copie).then(fait, secours); }catch(e){ secours(); }
+    });
+  });
+
+  // ----- Braises dorées -----
+  if(!calme){
+    var c = $('braises'), x = c.getContext('2d'), W, H, P = [];
+    function taille(){ W = c.width = innerWidth; H = c.height = innerHeight; }
+    taille(); addEventListener('resize', taille);
+    for(var i = 0; i < 46; i++) P.push({x:Math.random(), y:Math.random(), r:.6 + Math.random()*1.8, v:.0006 + Math.random()*.0016, d:Math.random()*6.28, a:.25 + Math.random()*.6});
+    (function boucle(t){
+      x.clearRect(0, 0, W, H);
+      for(var i = 0; i < P.length; i++){ var p = P[i];
+        p.y -= p.v; if(p.y < -.03){ p.y = 1.03; p.x = Math.random(); }
+        var px = (p.x + Math.sin(t/1700 + p.d) * .012) * W, py = p.y * H, al = p.a * (.6 + .4*Math.sin(t/420 + p.d));
+        x.beginPath(); x.arc(px, py, p.r, 0, 6.283); x.fillStyle = 'rgba(248,214,130,' + al.toFixed(3) + ')'; x.shadowColor = 'rgba(255,170,60,.9)'; x.shadowBlur = 8; x.fill();
+      }
+      if(!document.hidden) requestAnimationFrame(boucle); else setTimeout(function(){ requestAnimationFrame(boucle); }, 500);
+    })(0);
+  }
+})();
+</script>
+
+</body>
+</html>
