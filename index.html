@@ -298,6 +298,12 @@ figure .e{font-size:.84rem;color:var(--ivoire-doux)}
 .recu .num{font:900 clamp(2.2rem,10vw,3rem)/1 var(--titre);font-variant-numeric:tabular-nums}
 .recu .num small{display:block;font:600 .7rem var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
 .recu p{margin:0;font-size:.86rem;color:var(--ivoire-doux)}
+.numtel{display:flex;gap:8px;width:100%}
+.numtel input{flex:1;min-width:0}
+.indic{position:relative;flex:none;display:flex;align-items:center;gap:4px;padding:0 26px 0 12px;border-radius:4px;border:1px solid var(--trait);background:rgba(255,255,255,.07);color:var(--ivoire);font:600 .98rem var(--texte);white-space:nowrap}
+.indic::after{content:"";position:absolute;right:10px;top:50%;width:7px;height:7px;border-right:2px solid var(--or);border-bottom:2px solid var(--or);transform:translateY(-70%) rotate(45deg)}
+.indic select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+.indic:focus-within{outline:2px solid var(--or-clair);outline-offset:2px}
 .coche{flex-direction:row !important;align-items:flex-start;gap:10px !important;font-size:.9rem !important;color:var(--ivoire) !important;cursor:pointer;line-height:1.4}
 .coche input{width:20px !important;height:20px;flex:none;margin:1px 0 0;accent-color:var(--or);padding:0 !important}
 .rappels{width:100%;display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--trait);padding-top:14px;margin-top:4px;text-align:left}
@@ -665,7 +671,11 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
         <div id="p-form" class="champs">
           <p>Indiquez votre numéro de téléphone puis envoyez la confirmation sur WhatsApp. Vous recevrez votre numéro d'inscription.</p>
           <label for="p-nom">Nom et prénom<input id="p-nom" type="text" maxlength="40" autocomplete="name" placeholder="Votre nom et prénom"></label>
-          <label for="p-tel">Numéro de téléphone<input id="p-tel" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="Ex. 07 08 26 46 71"></label>
+          <label for="p-tel">Numéro de téléphone (WhatsApp)
+            <span class="numtel">
+              <span class="indic"><span id="indic-aff" aria-hidden="true">🇨🇮 +225</span><select id="p-pays" aria-label="Indicatif du pays"></select></span>
+              <input id="p-tel" type="tel" inputmode="tel" maxlength="20" autocomplete="tel-national" placeholder="07 08 26 46 71">
+            </span></label>
           <label class="coche" for="p-rappels"><input type="checkbox" id="p-rappels"><span>J'accepte de recevoir les rappels du programme (notifications et WhatsApp).</span></label>
           <p class="err" id="p-err" role="alert"></p>
         </div>
@@ -969,16 +979,41 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   lireCompte(); setInterval(lireCompte, 30000);
 
   // ----- Confirmation de présence -----
+  // Indicatifs des pays (Côte d'Ivoire par défaut)
+  var PAYS = "CI|Côte d'Ivoire|225;BF|Burkina Faso|226;ML|Mali|223;SN|Sénégal|221;TG|Togo|228;BJ|Bénin|229;GN|Guinée|224;NE|Niger|227;GH|Ghana|233;LR|Liberia|231;CM|Cameroun|237;GA|Gabon|241;CG|Congo-Brazzaville|242;CD|RD Congo|243;NG|Nigeria|234;FR|France|33;BE|Belgique|32;CH|Suisse|41;CA|Canada|1;US|États-Unis|1;GB|Royaume-Uni|44;-;AF|Afghanistan|93;ZA|Afrique du Sud|27;AL|Albanie|355;DZ|Algérie|213;DE|Allemagne|49;AD|Andorre|376;AO|Angola|244;SA|Arabie saoudite|966;AR|Argentine|54;AM|Arménie|374;AU|Australie|61;AT|Autriche|43;AZ|Azerbaïdjan|994;BH|Bahreïn|973;BD|Bangladesh|880;BY|Biélorussie|375;BO|Bolivie|591;BA|Bosnie-Herzégovine|387;BW|Botswana|267;BR|Brésil|55;BG|Bulgarie|359;BI|Burundi|257;KH|Cambodge|855;CV|Cap-Vert|238;CF|Centrafrique|236;CL|Chili|56;CN|Chine|86;CY|Chypre|357;CO|Colombie|57;KM|Comores|269;KR|Corée du Sud|82;CR|Costa Rica|506;HR|Croatie|385;CU|Cuba|53;DK|Danemark|45;DJ|Djibouti|253;EG|Égypte|20;AE|Émirats arabes unis|971;EC|Équateur|593;ER|Érythrée|291;ES|Espagne|34;EE|Estonie|372;SZ|Eswatini|268;ET|Éthiopie|251;FI|Finlande|358;GM|Gambie|220;GE|Géorgie|995;GR|Grèce|30;GT|Guatemala|502;GQ|Guinée équatoriale|240;GW|Guinée-Bissau|245;HT|Haïti|509;HN|Honduras|504;HK|Hong Kong|852;HU|Hongrie|36;IN|Inde|91;ID|Indonésie|62;IQ|Irak|964;IR|Iran|98;IE|Irlande|353;IS|Islande|354;IL|Israël|972;IT|Italie|39;JM|Jamaïque|1;JP|Japon|81;JO|Jordanie|962;KZ|Kazakhstan|7;KE|Kenya|254;KW|Koweït|965;LS|Lesotho|266;LV|Lettonie|371;LB|Liban|961;LY|Libye|218;LT|Lituanie|370;LU|Luxembourg|352;MG|Madagascar|261;MY|Malaisie|60;MW|Malawi|265;MT|Malte|356;MA|Maroc|212;MU|Maurice|230;MR|Mauritanie|222;MX|Mexique|52;MD|Moldavie|373;MC|Monaco|377;MZ|Mozambique|258;NA|Namibie|264;NP|Népal|977;NO|Norvège|47;NZ|Nouvelle-Zélande|64;OM|Oman|968;UG|Ouganda|256;PK|Pakistan|92;PA|Panama|507;PY|Paraguay|595;NL|Pays-Bas|31;PE|Pérou|51;PH|Philippines|63;PL|Pologne|48;PT|Portugal|351;QA|Qatar|974;DO|République dominicaine|1;CZ|République tchèque|420;RO|Roumanie|40;RU|Russie|7;RW|Rwanda|250;SV|Salvador|503;ST|Sao Tomé-et-Principe|239;RS|Serbie|381;SC|Seychelles|248;SL|Sierra Leone|232;SG|Singapour|65;SK|Slovaquie|421;SI|Slovénie|386;SO|Somalie|252;SD|Soudan|249;SS|Soudan du Sud|211;LK|Sri Lanka|94;SE|Suède|46;SR|Suriname|597;SY|Syrie|963;TW|Taïwan|886;TZ|Tanzanie|255;TD|Tchad|235;TH|Thaïlande|66;TT|Trinité-et-Tobago|1;TN|Tunisie|216;TR|Turquie|90;UA|Ukraine|380;UY|Uruguay|598;VE|Venezuela|58;VN|Viêt Nam|84;YE|Yémen|967;ZM|Zambie|260;ZW|Zimbabwe|263".split(';');
+  function drapeau(iso){ return iso.replace(/./g, function(c){ return String.fromCodePoint(127397 + c.charCodeAt(0)); }); }
+  (function(){
+    var sel = $('p-pays'), grp = document.createElement('optgroup'); grp.label = 'Les plus utilisés'; sel.appendChild(grp);
+    PAYS.forEach(function(l){
+      if(l === '-'){ grp = document.createElement('optgroup'); grp.label = 'Tous les pays'; sel.appendChild(grp); return; }
+      var x = l.split('|'), o = document.createElement('option');
+      o.value = x[0] + '|' + x[2]; o.textContent = drapeau(x[0]) + ' ' + x[1] + ' (+' + x[2] + ')'; grp.appendChild(o);
+    });
+    sel.value = 'CI|225';
+    function maj(){ var v = sel.value.split('|'); $('indic-aff').textContent = drapeau(v[0]) + ' +' + v[1]; $('p-tel').placeholder = v[1] === '225' ? '07 08 26 46 71' : 'Votre numéro'; }
+    sel.addEventListener('change', function(){ maj(); $('p-tel').focus(); }); maj();
+  })();
+  function indicatif(){ return $('p-pays').value.split('|')[1]; }
   function chiffres(t){ var d = String(t || '').replace(/\D/g, ''); if(d.indexOf('00') === 0) d = d.slice(2); if(d.length === 13 && d.indexOf('225') === 0) d = d.slice(3); return d; }
-  function telLisible(t){
-    var brut = String(t || '').trim(), d = chiffres(brut);
-    if(d.length === 10 && !/^\s*(\+|00)(?!225)/.test(brut)) return d.replace(/(\d{2})(?=\d)/g, '$1 ');
-    return '+' + d;
+  // Numéro national saisi -> numéro complet. Côte d'Ivoire : 10 chiffres gardés tels quels.
+  function numeroComplet(t){
+    var brut = String(t || '').trim(), code = indicatif(), d = brut.replace(/\D/g, '');
+    if(/^\s*(\+|00)/.test(brut)){ if(d.indexOf('00') === 0) d = d.slice(2); return {code:'', nat:d, intl:true}; }
+    if(code === '225') return {code:'225', nat:d, intl:false};
+    if(code !== '39') d = d.replace(/^0/, '');
+    return {code:code, nat:d, intl:false};
   }
   function telValide(t){
-    var brut = String(t || '').trim(), d = chiffres(brut);
-    if(/^\s*(\+|00)(?!225)/.test(brut)) return d.length >= 8 && d.length <= 15;
-    return d.length === 10;
+    var n = numeroComplet(t);
+    if(n.intl) return n.nat.length >= 8 && n.nat.length <= 15 && !(n.nat.indexOf('225') === 0 && n.nat.length !== 13);
+    if(n.code === '225') return n.nat.length === 10;
+    return n.nat.length >= 6 && (n.code + n.nat).length <= 15;
+  }
+  function telLisible(t){
+    var n = numeroComplet(t), d;
+    if(n.intl){ d = n.nat; if(d.length === 13 && d.indexOf('225') === 0) return d.slice(3).replace(/(\d{2})(?=\d)/g, '$1 '); return '+' + d; }
+    if(n.code === '225') return n.nat.replace(/(\d{2})(?=\d)/g, '$1 ');
+    return '+' + n.code + ' ' + n.nat;
   }
   function messageWhatsApp(){
     var p = presence;
@@ -1020,7 +1055,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     var nIn = $('p-nom'), tIn = $('p-tel'), n = propre(nIn.value), t = tIn.value, err = '';
     nIn.setAttribute('aria-invalid', 'false'); tIn.setAttribute('aria-invalid', 'false');
     if(!n){ err = 'Indiquez votre nom et prénom.'; nIn.setAttribute('aria-invalid', 'true'); }
-    else if(!telValide(t)){ err = 'Indiquez un numéro de téléphone valide (10 chiffres, ex. 07 08 26 46 71).'; tIn.setAttribute('aria-invalid', 'true'); }
+    else if(!telValide(t)){ err = indicatif() === '225' ? 'Indiquez un numéro valide : 10 chiffres, ex. 07 08 26 46 71.' : 'Indiquez un numéro de téléphone valide, sans l\'indicatif du pays.'; tIn.setAttribute('aria-invalid', 'true'); }
     if(err){ e.preventDefault(); $('p-err').textContent = err; (n ? tIn : nIn).focus(); return; }
     $('p-err').textContent = '';
     var civ = document.querySelector('input[name=civ]:checked').value;
