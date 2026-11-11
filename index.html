@@ -750,7 +750,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   var EXTERNE = !window.claude && /^https?:$/.test(location.protocol) && !/claude|anthropic/i.test(location.hostname);
   var LIEN_SITE = "https://adorons-sa-majeste-13e.github.io/";
   // Adresse du registre privé des présences (Google Sheets, Apps Script). Vide = pas encore branché.
-  var API_PRESENCES = "";
+  var API_PRESENCES = "https://script.google.com/macros/s/AKfycbyih4_HNSMhuBWXTXljijMKhVQ7hSs9VLG-WZxD8VbyJCIvTqF7hRdzRbTkRDWCY-jGCg/exec";
   var $ = function(id){ return document.getElementById(id); };
   var porte = $('porte'), nom = $('nom'), musique = $('musique'), son = $('son'), video = $('video');
   var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
