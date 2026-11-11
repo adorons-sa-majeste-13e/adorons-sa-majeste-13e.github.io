@@ -279,6 +279,23 @@ figure .e{font-size:.84rem;color:var(--ivoire-doux)}
 .fb{background:#1877f2}.yt{background:#e3141c}.tt{background:#0b0b0d;border:1px solid #3a3a40}
 
 
+/* ---------- Présence ---------- */
+.champs{display:flex;flex-direction:column;gap:10px;width:100%}
+.champs label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--ivoire-doux);text-align:left}
+.champs input{width:100%;padding:12px 14px;border-radius:4px;border:1px solid var(--trait);background:rgba(255,255,255,.07);color:var(--ivoire);font:500 1rem var(--texte)}
+.champs input::placeholder{color:rgba(247,238,221,.4)}
+.champs input[aria-invalid="true"]{border-color:var(--cramoisi-vif);background:rgba(216,31,44,.12)}
+.err{margin:0;color:#ff8a8f;font-size:.88rem;min-height:0}
+.err:empty{display:none}
+.recu{width:100%;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;border:1px solid var(--or);border-radius:8px;padding:18px 14px;background:linear-gradient(180deg,rgba(233,189,85,.14),rgba(233,189,85,.04))}
+.recu .ok{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:#7fe0a1}
+.recu .ok svg{width:22px;height:22px}
+.recu .qui{font:700 1.15rem var(--titre);color:#fff;overflow-wrap:anywhere}
+.recu .num{font:900 clamp(2.2rem,10vw,3rem)/1 var(--titre);font-variant-numeric:tabular-nums}
+.recu .num small{display:block;font:600 .7rem var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+.recu p{margin:0;font-size:.86rem;color:var(--ivoire-doux)}
+.statut-porte{margin:0;padding:10px 14px;border-radius:6px;border:1px solid var(--or);background:rgba(233,189,85,.1);color:var(--or-clair) !important;font-weight:600;font-size:.92rem !important}
+
 /* ---------- Mot du fondateur ---------- */
 .mot{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:34px;align-items:center}
 .mot img{width:100%;aspect-ratio:8/9;object-fit:cover;object-position:50% 20%;border-radius:8px;border:2px solid var(--or);box-shadow:18px 18px 0 -4px rgba(179,18,29,.55),0 24px 50px rgba(0,0,0,.6)}
@@ -379,8 +396,9 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     <img src="a/logo.png" alt="Logo MICASE">
     <span class="sur">Invitation officielle</span>
     <h1 class="or">Adorons Sa Majesté</h1>
-    <div class="inv">Une invitation vous attend</div>
-    <p>Indiquez votre nom pour recevoir votre invitation personnelle.</p>
+    <div class="inv" id="porte-titre">Une invitation vous attend</div>
+    <p id="porte-texte">Indiquez votre nom pour recevoir votre invitation personnelle.</p>
+    <p class="statut-porte" id="porte-statut" hidden></p>
     <fieldset class="civ" aria-label="Civilité">
       <label><input type="radio" name="civ" id="civ-m" value="Monsieur" checked><span>Monsieur</span></label>
       <label><input type="radio" name="civ" id="civ-f" value="Madame"><span>Madame</span></label>
@@ -629,12 +647,23 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     <div class="tete"><span class="sur">Répondez à l'invitation</span><h2 class="or">Serez-vous des nôtres ?</h2><div class="filet"></div></div>
     <div class="compte" id="compte" hidden><b class="or" id="compte-n">0</b><span id="compte-t">personnes ont déjà confirmé leur présence</span></div>
     <div class="duo">
-      <div class="bloc">
+      <div class="bloc" id="bloc-presence">
         <h3>Je confirme ma présence</h3>
-        <p>Un message prêt s'ouvre dans WhatsApp, à votre nom. Il ne vous reste qu'à l'envoyer à l'église.</p>
+        <div id="p-form" class="champs">
+          <p>Indiquez votre numéro de téléphone puis envoyez la confirmation sur WhatsApp. Vous recevrez votre numéro d'inscription.</p>
+          <label for="p-nom">Nom et prénom<input id="p-nom" type="text" maxlength="40" autocomplete="name" placeholder="Votre nom et prénom"></label>
+          <label for="p-tel">Numéro de téléphone<input id="p-tel" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="Ex. 07 08 26 46 71"></label>
+          <p class="err" id="p-err" role="alert"></p>
+        </div>
+        <div class="recu" id="p-recu" hidden>
+          <span class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Présence confirmée</span>
+          <span class="qui" id="p-qui"></span>
+          <span class="num or" id="p-num"></span>
+          <p id="p-info"></p>
+        </div>
         <a class="btn vert" id="confirmer" href="https://wa.me/2250555239392" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-          Confirmer sur WhatsApp</a>
+          <span id="confirmer-txt">Confirmer sur WhatsApp</span></a>
       </div>
       <div class="bloc">
         <h3>J'invite un proche</h3>
@@ -719,16 +748,32 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
 (function(){
   // Adresse publique du site, utilisée dans le bouton « Partager »
   var EXTERNE = !window.claude && /^https?:$/.test(location.protocol) && !/claude|anthropic/i.test(location.hostname);
-  var LIEN_SITE = EXTERNE ? (location.origin + location.pathname) : "https://claude.ai/artifact/5LRX6Z16wnR7t4HKjvBUoM";
+  var LIEN_SITE = "https://adorons-sa-majeste-13e.github.io/";
+  // Adresse du registre privé des présences (Google Sheets, Apps Script). Vide = pas encore branché.
+  var API_PRESENCES = "";
   var $ = function(id){ return document.getElementById(id); };
   var porte = $('porte'), nom = $('nom'), musique = $('musique'), son = $('son'), video = $('video');
   var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ----- Mémoire légère du nom -----
-  try{
-    var m = JSON.parse(localStorage.getItem('asm-invite') || 'null');
-    if(m){ nom.value = m.nom || ''; var r = document.querySelector('input[name=civ][value="'+m.civ+'"]'); if(r) r.checked = true; }
-  }catch(e){}
+  // ----- Présence enregistrée sur cet appareil -----
+  function lireLocal(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function ecrireLocal(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+  function lireCookie(k){ var m = document.cookie.match(new RegExp('(?:^|; )' + k + '=([^;]*)')); return m ? decodeURIComponent(m[1]) : null; }
+  function ecrireCookie(k, v){ try{ document.cookie = k + '=' + encodeURIComponent(v) + ';max-age=31536000;path=/;SameSite=Lax'; }catch(e){} }
+  try{ localStorage.removeItem('asm-invite'); localStorage.removeItem('asm-confirme'); }catch(e){}
+  var APPAREIL = lireLocal('asm-appareil') || lireCookie('asm_appareil');
+  if(!APPAREIL){
+    APPAREIL = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : ('a' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+  }
+  ecrireLocal('asm-appareil', APPAREIL); ecrireCookie('asm_appareil', APPAREIL);
+  var presence = null;
+  try{ presence = JSON.parse(lireLocal('asm-presence') || lireCookie('asm_presence') || 'null'); }catch(e){ presence = null; }
+  if(presence && !(presence.nom && presence.tel)) presence = null;
+  function garderPresence(){ var t = JSON.stringify(presence); ecrireLocal('asm-presence', t); ecrireCookie('asm_presence', t); }
+  if(presence){
+    nom.value = presence.nom;
+    var rc = document.querySelector('input[name=civ][value="' + presence.civ + '"]'); if(rc) rc.checked = true;
+  }
 
   var invite = {civ:'Monsieur', nom:'', appel:'', accord:'invité(e)'};
   function propre(s){ return s.replace(/[<>]/g,'').replace(/\s+/g,' ').trim(); }
@@ -746,14 +791,10 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     salut.appendChild(document.createTextNode('vous êtes cordialement ' + accord + ' à'));
     $('c-bon').textContent = bon; $('c-nom').textContent = appel;
     $('c-acc').textContent = 'vous êtes cordialement ' + accord + ' à';
-    var qui = n ? (civ + ' ' + n) : 'Un(e) invité(e)';
-    var msg = 'Bonjour, je suis ' + qui + '. Je confirme ma présence à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026 à l\'Église MICASE Yopougon Niangon. Que Dieu vous bénisse !';
-    if(!n) msg = 'Bonjour, je confirme ma présence à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026 à l\'Église MICASE Yopougon Niangon. Que Dieu vous bénisse !';
-    $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(msg);
-    var inv = '✨ Vous êtes invité(e) à ADORONS SA MAJESTÉ, 13e édition ✨\nThème : « LE TABERNACLE DE L\'ÉTERNEL »\n📅 Du dimanche 20 au samedi 26 décembre 2026\n📍 Église MICASE, Yopougon Niangon (Coprim Texaco, Carrefour Bar Éclat)\n' + (LIEN_SITE ? '\nOuvrez votre invitation ici 👉 ' + LIEN_SITE : '');
+    var inv = "YES ! J'AI REÇU MON INVITATION POUR LA 13e ÉDITION DE ADORONS SA MAJESTÉ !\nClique sur le lien pour recevoir la tienne !\n" + LIEN_SITE;
     $('inviter').href = 'https://wa.me/?text=' + encodeURIComponent(inv);
+    if(!presence && n && !$('p-nom').value) $('p-nom').value = n;
     invite = {civ:civ, nom:n, appel:appel, accord:accord};
-    try{ localStorage.setItem('asm-invite', JSON.stringify({civ:civ, nom:n})); }catch(e){}
     dessinerCarte();
   }
   personnaliser();
@@ -772,6 +813,17 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   video.addEventListener('play', function(){ if(!musique.paused) couper(); });
   video.addEventListener('pause', function(){ if(veutSon) monter(); });
   video.addEventListener('ended', function(){ if(veutSon) monter(); });
+
+  // ----- Visiteur déjà confirmé : reconnu sans retaper son nom -----
+  if(presence){
+    var hh = new Date().getHours();
+    $('porte-titre').textContent = ((hh >= 18 || hh < 5) ? 'Bonsoir ' : 'Bonjour ') + presence.civ + ' ' + presence.nom;
+    $('porte-texte').textContent = 'Heureux de vous revoir !';
+    var st = $('porte-statut'); st.hidden = false;
+    st.textContent = presence.num ? ('✓ Présence confirmée · Inscription N°\u00a0' + presence.num) : '✓ Présence confirmée';
+    document.querySelector('.civ').hidden = true; nom.hidden = true;
+    $('ouvrir').textContent = 'Entrer';
+  }
 
   // ----- Ouverture du voile -----
   $('formulaire').addEventListener('submit', function(e){
@@ -877,26 +929,83 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   }
   var horloge = setInterval(tic, 1000); tic();
 
-  // ----- Compteur des confirmations (sans les noms) -----
-  var API = 'https://abacus.jasoncameron.dev/', CLE = 'micase-adorons-sa-majeste-13e/confirmations';
+  // ----- Compteur des présences validées (sans les noms) -----
   function afficherCompte(v){
-    if(typeof v !== 'number' || v < 1) return;
+    if(typeof v !== 'number' || v < 1){ $('compte').hidden = true; $('mini-compte').hidden = true; return; }
     $('compte-n').textContent = v;
     $('compte-t').textContent = v > 1 ? 'personnes ont déjà confirmé leur présence' : 'personne a déjà confirmé sa présence';
     $('compte').hidden = false;
     var m = $('mini-compte'); m.textContent = v > 1 ? (v + ' personnes ont déjà confirmé leur présence') : '1 personne a déjà confirmé sa présence'; m.hidden = false;
   }
   function lireCompte(){
-    if(document.hidden) return;
-    fetch(API + 'get/' + CLE, {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if(j) afficherCompte(j.value); }).catch(function(){});
+    if(!API_PRESENCES || document.hidden) return;
+    fetch(API_PRESENCES + '?action=total', {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if(j) afficherCompte(j.total); }).catch(function(){});
   }
   lireCompte(); setInterval(lireCompte, 30000);
-  $('confirmer').addEventListener('click', function(){
-    var deja = false; try{ deja = localStorage.getItem('asm-confirme') === '1'; }catch(e){}
-    if(deja) return;
-    try{ localStorage.setItem('asm-confirme', '1'); }catch(e){}
-    fetch(API + 'hit/' + CLE, {cache:'no-store', keepalive:true}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if(j) afficherCompte(j.value); }).catch(function(){});
+
+  // ----- Confirmation de présence -----
+  function chiffres(t){ var d = String(t || '').replace(/\D/g, ''); if(d.indexOf('00') === 0) d = d.slice(2); if(d.length === 13 && d.indexOf('225') === 0) d = d.slice(3); return d; }
+  function telLisible(t){
+    var brut = String(t || '').trim(), d = chiffres(brut);
+    if(d.length === 10 && !/^\s*(\+|00)(?!225)/.test(brut)) return d.replace(/(\d{2})(?=\d)/g, '$1 ');
+    return '+' + d;
+  }
+  function telValide(t){
+    var brut = String(t || '').trim(), d = chiffres(brut);
+    if(/^\s*(\+|00)(?!225)/.test(brut)) return d.length >= 8 && d.length <= 15;
+    return d.length === 10;
+  }
+  function messageWhatsApp(){
+    var p = presence;
+    return 'Bonjour, je suis ' + p.civ + ' ' + p.nom + ' (' + p.tel + '). Je confirme ma présence à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026 à l\'Église MICASE Yopougon Niangon.' +
+      (p.num ? ' Mon numéro d\'inscription : N° ' + p.num + '.' : '') + ' Que Dieu vous bénisse !';
+  }
+  function afficherPresence(){
+    var ok = !!presence;
+    $('p-form').hidden = ok; $('p-recu').hidden = !ok;
+    if(!ok) return;
+    $('p-qui').textContent = presence.civ + ' ' + presence.nom;
+    var num = $('p-num'); num.textContent = '';
+    if(presence.num){
+      var sm = document.createElement('small'); sm.textContent = "Numéro d'inscription"; num.appendChild(sm);
+      num.appendChild(document.createTextNode('N° ' + presence.num));
+      $('p-info').textContent = 'Gardez ce numéro. Votre présence est enregistrée, inutile de la confirmer à nouveau.';
+    } else {
+      $('p-info').textContent = "Votre présence est enregistrée sur ce téléphone. Votre numéro d'inscription s'affichera ici dès que l'enregistrement sera finalisé.";
+    }
+    $('confirmer-txt').textContent = 'Renvoyer mon message sur WhatsApp';
+    $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(messageWhatsApp());
+  }
+  function enregistrer(){
+    if(!presence || presence.ok || !API_PRESENCES) return;
+    var d = {id:APPAREIL, civ:presence.civ, nom:presence.nom, tel:presence.tel};
+    fetch(API_PRESENCES, {method:'POST', body:JSON.stringify(d), keepalive:true})
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(!j || !j.ok) return;
+        presence.ok = true; if(j.num) presence.num = j.num; garderPresence();
+        afficherPresence(); dessinerCarte(); afficherCompte(j.total);
+        var st = $('porte-statut'); if(!st.hidden && presence.num) st.textContent = '✓ Présence confirmée · Inscription N°\u00a0' + presence.num;
+      }).catch(function(){});
+  }
+  $('confirmer').addEventListener('click', function(e){
+    if(presence){ $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(messageWhatsApp()); return; }
+    var nIn = $('p-nom'), tIn = $('p-tel'), n = propre(nIn.value), t = tIn.value, err = '';
+    nIn.setAttribute('aria-invalid', 'false'); tIn.setAttribute('aria-invalid', 'false');
+    if(!n){ err = 'Indiquez votre nom et prénom.'; nIn.setAttribute('aria-invalid', 'true'); }
+    else if(!telValide(t)){ err = 'Indiquez un numéro de téléphone valide (10 chiffres, ex. 07 08 26 46 71).'; tIn.setAttribute('aria-invalid', 'true'); }
+    if(err){ e.preventDefault(); $('p-err').textContent = err; (n ? tIn : nIn).focus(); return; }
+    $('p-err').textContent = '';
+    var civ = document.querySelector('input[name=civ]:checked').value;
+    presence = {civ:civ, nom:n, tel:telLisible(t), num:null, ok:false, le:new Date().toISOString()};
+    garderPresence();
+    $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(messageWhatsApp());
+    if(propre(nom.value) !== n){ nom.value = n; personnaliser(); }
+    enregistrer();
+    setTimeout(afficherPresence, 400);
   });
+  afficherPresence();
+  enregistrer();
 
   // ----- Plan du tabernacle -----
   var PLAN = {
@@ -943,7 +1052,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     c.fillStyle = g; c.fillRect(0, 0, W, H);
     c.strokeStyle = '#e9bd55'; c.lineWidth = 5; c.strokeRect(28, 28, W - 56, H - 56); c.lineWidth = 1.5; c.strokeRect(42, 42, W - 84, H - 84);
     if(imgs.logo.naturalWidth) c.drawImage(imgs.logo, W / 2 - 62, 66, 124, 124);
-    centre('INVITATION OFFICIELLE', 236, '600 26px ' + P, '#e9bd55', 10);
+    centre(presence && presence.num ? ('INVITATION OFFICIELLE · N° ' + presence.num) : 'INVITATION OFFICIELLE', 236, '600 26px ' + P, '#e9bd55', presence && presence.num ? 6 : 10);
     c.shadowColor = 'rgba(0,0,0,.6)'; c.shadowBlur = 14;
     if(invite.nom){ ajuste(invite.appel, 318, '700', T, 920, 64, '#ffffff'); centre('est cordialement ' + invite.accord + ' à', 378, 'italic 500 46px ' + SC, '#f7eedd'); }
     else { ajuste('Vous êtes', 312, '700', T, 920, 58, '#ffffff'); centre('cordialement invité(e) à', 376, 'italic 500 46px ' + SC, '#f7eedd'); }
@@ -986,7 +1095,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   });
   $('carte-part').addEventListener('click', function(){
     try{ var f = new File([carteBlob], nomFichier(), {type:'image/jpeg'});
-      navigator.share({files:[f], text:'Vous êtes invité(e) à ADORONS SA MAJESTÉ, 13e édition, du 20 au 26 décembre 2026. ' + LIEN_SITE}).catch(function(){});
+      navigator.share({files:[f], text:"YES ! J'AI REÇU MON INVITATION POUR LA 13e ÉDITION DE ADORONS SA MAJESTÉ !\nClique sur le lien pour recevoir la tienne !\n" + LIEN_SITE}).catch(function(){});
     }catch(e){}
   });
 
