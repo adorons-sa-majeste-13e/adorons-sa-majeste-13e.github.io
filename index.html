@@ -1074,7 +1074,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
   var horsEcranAccueil = !(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches));
   function majNotif(){
     var zone = $('notif-zone'); if(!zone) return;
-    var actif = OS && OS.Notifications && OS.Notifications.permission;
+    var actif = OS && OS.Notifications && OS.Notifications.permission && abonne();
     if(!ONESIGNAL_APP_ID || location.hostname !== SITE_HOTE){ zone.hidden = true; return; }
     zone.hidden = false;
     if(estIOS && horsEcranAccueil){ $('notif-btn').hidden = true; $('notif-ok').hidden = true; $('notif-ios').hidden = false; $('notif-texte').hidden = false; return; }
@@ -1084,25 +1084,47 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     }
     $('notif-btn').hidden = !!actif; $('notif-ok').hidden = !actif; $('notif-texte').hidden = !!actif;
   }
+  var OS_ERR = '';
+  function infoNotif(t){ var x = $('notif-texte'); x.hidden = false; x.textContent = t; }
   if(ONESIGNAL_APP_ID && location.hostname === SITE_HOTE){
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(function(O){
       return O.init({appId:ONESIGNAL_APP_ID}).then(function(){
         OS = O; majNotif();
         try{ O.Notifications.addEventListener('permissionChange', majNotif); }catch(e){}
-      });
+        try{ O.User.PushSubscription.addEventListener('change', majNotif); }catch(e){}
+      }).catch(function(e){ OS_ERR = 'Erreur OneSignal : ' + ((e && e.message) || e); });
     });
-    var sdk = document.createElement('script'); sdk.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; sdk.defer = true; document.head.appendChild(sdk);
+    var sdk = document.createElement('script'); sdk.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; sdk.defer = true;
+    sdk.onerror = function(){ OS_ERR = "Le service de notifications n'a pas pu se charger (connexion ou bloqueur de publicités)."; };
+    document.head.appendChild(sdk);
+  }
+  function abonne(){ try{ return !!(OS && OS.User && OS.User.PushSubscription && OS.User.PushSubscription.optedIn); }catch(e){ return false; } }
+  function apresDemande(){
+    var perm = ('Notification' in window) ? Notification.permission : 'default';
+    if(perm === 'denied'){ infoNotif("Les notifications sont bloquées pour ce site. Dans Chrome : touchez le cadenas à gauche de l'adresse, puis Autorisations, Notifications, Autoriser. Rechargez ensuite la page."); return; }
+    if(perm === 'granted' && !abonne()){ try{ OS.User.PushSubscription.optIn(); }catch(e){} }
+    setTimeout(function(){
+      majNotif();
+      if(perm === 'granted' && !abonne()) infoNotif("Autorisation accordée, mais l'abonnement n'a pas abouti. Rechargez la page et réessayez." + (OS_ERR ? ' (' + OS_ERR + ')' : ''));
+    }, 2500);
   }
   $('notif-btn').addEventListener('click', function(){
-    var b = this;
-    if(!OS){ b.textContent = 'Un instant…'; setTimeout(function(){ b.textContent = 'Activer les notifications'; if(OS) b.click(); }, 1500); return; }
-    try{
-      OS.Notifications.requestPermission().then(function(){
-        try{ if(presence && presence.num) OS.User.addTags({inscrit:'oui', numero:String(presence.num)}); }catch(e){}
-        majNotif();
-      }).catch(majNotif);
-    }catch(e){ majNotif(); }
+    var b = this, essais = 0;
+    function lancer(){
+      if(!OS){
+        if(OS_ERR || ++essais > 8){ b.textContent = 'Activer les notifications'; infoNotif(OS_ERR || "Le service de notifications ne répond pas. Vérifiez votre connexion, rechargez la page et réessayez."); return; }
+        b.textContent = 'Un instant…'; setTimeout(lancer, 1000); return;
+      }
+      b.textContent = 'Activer les notifications';
+      try{
+        OS.Notifications.requestPermission().then(function(){
+          try{ if(presence && presence.num) OS.User.addTags({inscrit:'oui', numero:String(presence.num)}); }catch(e){}
+          apresDemande();
+        }).catch(function(e){ infoNotif('Erreur : ' + ((e && e.message) || e)); });
+      }catch(e){ infoNotif('Erreur : ' + e.message); }
+    }
+    lancer();
   });
   // Fiche contact de l'église (vCard) à enregistrer en un geste
   (function(){
