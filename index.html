@@ -11,6 +11,10 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#12060a">
 <link rel="icon" href="a/logo.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="a/icone-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Adorons Sa Majesté">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Poppins:wght@400;500;600;700&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
@@ -294,6 +298,15 @@ figure .e{font-size:.84rem;color:var(--ivoire-doux)}
 .recu .num{font:900 clamp(2.2rem,10vw,3rem)/1 var(--titre);font-variant-numeric:tabular-nums}
 .recu .num small{display:block;font:600 .7rem var(--texte);letter-spacing:.24em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
 .recu p{margin:0;font-size:.86rem;color:var(--ivoire-doux)}
+.coche{flex-direction:row !important;align-items:flex-start;gap:10px !important;font-size:.9rem !important;color:var(--ivoire) !important;cursor:pointer;line-height:1.4}
+.coche input{width:20px !important;height:20px;flex:none;margin:1px 0 0;accent-color:var(--or);padding:0 !important}
+.rappels{width:100%;display:flex;flex-direction:column;gap:10px;border-top:1px solid var(--trait);padding-top:14px;margin-top:4px;text-align:left}
+.rappels h4{margin:0;font:700 1rem var(--titre);color:var(--or-clair);text-align:center}
+.rappels p{margin:0;font-size:.86rem;color:var(--ivoire-doux)}
+.rappels .btn{width:100%;padding:12px 14px;font-size:.92rem}
+.rappels .fait{color:#7fe0a1;font-weight:600;font-size:.9rem;text-align:center}
+.ios{border:1px dashed var(--trait);border-radius:6px;padding:10px 12px}
+.ios b{color:var(--or-clair)}
 .statut-porte{margin:0;padding:10px 14px;border-radius:6px;border:1px solid var(--or);background:rgba(233,189,85,.1);color:var(--or-clair) !important;font-weight:600;font-size:.92rem !important}
 
 /* ---------- Mot du fondateur ---------- */
@@ -653,6 +666,7 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
           <p>Indiquez votre numéro de téléphone puis envoyez la confirmation sur WhatsApp. Vous recevrez votre numéro d'inscription.</p>
           <label for="p-nom">Nom et prénom<input id="p-nom" type="text" maxlength="40" autocomplete="name" placeholder="Votre nom et prénom"></label>
           <label for="p-tel">Numéro de téléphone<input id="p-tel" type="tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="Ex. 07 08 26 46 71"></label>
+          <label class="coche" for="p-rappels"><input type="checkbox" id="p-rappels"><span>J'accepte de recevoir les rappels du programme (notifications et WhatsApp).</span></label>
           <p class="err" id="p-err" role="alert"></p>
         </div>
         <div class="recu" id="p-recu" hidden>
@@ -660,6 +674,17 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
           <span class="qui" id="p-qui"></span>
           <span class="num or" id="p-num"></span>
           <p id="p-info"></p>
+          <div class="rappels" id="p-rappels-bloc" hidden>
+            <h4>Vos rappels</h4>
+            <div id="notif-zone">
+              <p id="notif-texte">Recevez un rappel chaque jour et le lien du direct à chaque séance, directement sur ce téléphone.</p>
+              <button class="btn dore" id="notif-btn" type="button">Activer les notifications</button>
+              <p class="fait" id="notif-ok" hidden>✓ Notifications activées sur ce téléphone</p>
+              <p class="ios" id="notif-ios" hidden><b>Sur iPhone :</b> touchez le bouton Partager <b>⬆</b>, puis « <b>Sur l'écran d'accueil</b> ». Ouvrez ensuite le site depuis la nouvelle icône pour activer les notifications.</p>
+            </div>
+            <p>Pour recevoir aussi nos messages WhatsApp, enregistrez le numéro de l'église dans vos contacts.</p>
+            <a class="btn ligne" id="contact-btn" href="#" download="MICASE_Adorons_Sa_Majeste.vcf">Enregistrer le contact de l'église</a>
+          </div>
         </div>
         <a class="btn vert" id="confirmer" href="https://wa.me/2250555239392" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
@@ -974,11 +999,13 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
       $('p-info').textContent = "Votre présence est enregistrée sur ce téléphone. Votre numéro d'inscription s'affichera ici dès que l'enregistrement sera finalisé.";
     }
     $('confirmer-txt').textContent = 'Renvoyer mon message sur WhatsApp';
+    $('p-rappels-bloc').hidden = !presence.rappels;
+    majNotif();
     $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(messageWhatsApp());
   }
   function enregistrer(){
     if(!presence || presence.ok || !API_PRESENCES) return;
-    var d = {id:APPAREIL, civ:presence.civ, nom:presence.nom, tel:presence.tel};
+    var d = {id:APPAREIL, civ:presence.civ, nom:presence.nom, tel:presence.tel, rappels:!!presence.rappels};
     fetch(API_PRESENCES, {method:'POST', body:JSON.stringify(d), keepalive:true})
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(j){
@@ -997,13 +1024,57 @@ footer p{margin:0;font-size:.84rem;color:var(--ivoire-doux)}
     if(err){ e.preventDefault(); $('p-err').textContent = err; (n ? tIn : nIn).focus(); return; }
     $('p-err').textContent = '';
     var civ = document.querySelector('input[name=civ]:checked').value;
-    presence = {civ:civ, nom:n, tel:telLisible(t), num:null, ok:false, le:new Date().toISOString()};
+    presence = {civ:civ, nom:n, tel:telLisible(t), num:null, ok:false, rappels:$('p-rappels').checked, le:new Date().toISOString()};
     garderPresence();
     $('confirmer').href = 'https://wa.me/2250555239392?text=' + encodeURIComponent(messageWhatsApp());
     if(propre(nom.value) !== n){ nom.value = n; personnaliser(); }
     enregistrer();
     setTimeout(afficherPresence, 400);
   });
+  // ----- Rappels : notifications du site (OneSignal) + contact de l'église -----
+  var ONESIGNAL_APP_ID = "";
+  var SITE_HOTE = 'adorons-sa-majeste-13e.github.io';
+  var OS = null;
+  var estIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var horsEcranAccueil = !(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches));
+  function majNotif(){
+    var zone = $('notif-zone'); if(!zone) return;
+    var actif = OS && OS.Notifications && OS.Notifications.permission;
+    if(!ONESIGNAL_APP_ID || location.hostname !== SITE_HOTE){ zone.hidden = true; return; }
+    zone.hidden = false;
+    if(estIOS && horsEcranAccueil){ $('notif-btn').hidden = true; $('notif-ok').hidden = true; $('notif-ios').hidden = false; $('notif-texte').hidden = false; return; }
+    $('notif-ios').hidden = true;
+    if(!('Notification' in window) || (OS && OS.Notifications && OS.Notifications.isPushSupported && !OS.Notifications.isPushSupported())){
+      $('notif-btn').hidden = true; $('notif-texte').textContent = "Ce navigateur ne permet pas les notifications. Vous recevrez nos rappels sur WhatsApp."; return;
+    }
+    $('notif-btn').hidden = !!actif; $('notif-ok').hidden = !actif; $('notif-texte').hidden = !!actif;
+  }
+  if(ONESIGNAL_APP_ID && location.hostname === SITE_HOTE){
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(function(O){
+      return O.init({appId:ONESIGNAL_APP_ID}).then(function(){
+        OS = O; majNotif();
+        try{ O.Notifications.addEventListener('permissionChange', majNotif); }catch(e){}
+      });
+    });
+    var sdk = document.createElement('script'); sdk.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; sdk.defer = true; document.head.appendChild(sdk);
+  }
+  $('notif-btn').addEventListener('click', function(){
+    var b = this;
+    if(!OS){ b.textContent = 'Un instant…'; setTimeout(function(){ b.textContent = 'Activer les notifications'; if(OS) b.click(); }, 1500); return; }
+    try{
+      OS.Notifications.requestPermission().then(function(){
+        try{ if(presence && presence.num) OS.User.addTags({inscrit:'oui', numero:String(presence.num)}); }catch(e){}
+        majNotif();
+      }).catch(majNotif);
+    }catch(e){ majNotif(); }
+  });
+  // Fiche contact de l'église (vCard) à enregistrer en un geste
+  (function(){
+    var vcf = 'BEGIN:VCARD\r\nVERSION:3.0\r\nFN:MICASE · Adorons Sa Majesté\r\nN:Adorons Sa Majesté;MICASE;;;\r\nORG:Église MICASE\r\nTEL;TYPE=CELL:+2250555239392\r\nURL:' + LIEN_SITE + '\r\nNOTE:Rappels et directs du programme ADORONS SA MAJESTÉ\r\nEND:VCARD\r\n';
+    try{ $('contact-btn').href = URL.createObjectURL(new Blob([vcf], {type:'text/vcard'})); }catch(e){ $('contact-btn').href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf); }
+  })();
+
   afficherPresence();
   enregistrer();
 
